@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "system/system.h"
+#include "Game.h"
 
 
 ///////////////////////////////////////////////////////////////////
@@ -18,6 +19,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	GameObjectManager::CreateInstance();
 	PhysicsWorld::CreateInstance();
 	
+	//ゲームのインスタンスを作成するよ！
+	Game* game = NewGO<Game>(0, "Game");
+
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
@@ -42,6 +46,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//////////////////////////////////////
 		g_engine->EndFrame();
 	}
+
+	DeleteGO(game);
+
 	//ゲームオブジェクトマネージャーを削除。
 	GameObjectManager::DeleteInstance();
 	return 0;
