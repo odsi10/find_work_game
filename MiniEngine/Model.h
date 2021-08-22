@@ -7,10 +7,12 @@
 class IShaderResource;
 
 //モデルの上方向
-enum EnModelUpAxis {
-	enModelUpAxisY,		//モデルの上方向がY軸。
-	enModelUpAxisZ,		//モデルの上方向がZ軸。
-};
+namespace enModelUpAxis {
+	enum EnModelUpAxis {
+		enModelUpAxisY,		//モデルの上方向がY軸。
+		enModelUpAxisZ,		//モデルの上方向がZ軸。
+	};
+}
 /// <summary>
 /// モデルの初期化データ
 /// </summary>
@@ -24,7 +26,7 @@ struct ModelInitData {
 	int m_expandConstantBufferSize = 0;								//ユーザー拡張の定数バッファのサイズ。
 	IShaderResource* m_expandShaderResoruceView = nullptr;			//ユーザー拡張のシェーダーリソース。
 	Skeleton* m_skeleton = nullptr;									//スケルトン。
-	EnModelUpAxis m_modelUpAxis = enModelUpAxisZ;					//モデルの上方向。
+	enModelUpAxis::EnModelUpAxis m_modelUpAxis = enModelUpAxis::enModelUpAxisZ;					//モデルの上方向。
 };
 
 /// <summary>
@@ -96,5 +98,5 @@ private:
 	TkmFile m_tkmFile;													//tkmファイル。
 	Skeleton m_skeleton;												//スケルトン。
 	MeshParts m_meshParts;											//メッシュパーツ。
-	EnModelUpAxis m_modelUpAxis = enModelUpAxisY;		//モデルの上方向。
+	enModelUpAxis::EnModelUpAxis m_modelUpAxis = enModelUpAxis::enModelUpAxisY;		//モデルの上方向。
 };

@@ -47,7 +47,7 @@ void Model::Init(const ModelInitData& initData)
 void Model::UpdateWorldMatrix(Vector3 pos, Quaternion rot, Vector3 scale)
 {
 	Matrix mBias;
-	if (m_modelUpAxis == enModelUpAxisZ) {
+	if (m_modelUpAxis == enModelUpAxis::enModelUpAxisZ) {
 		//Z-up
 		mBias.MakeRotationX(Math::PI * -0.5f);
 	}
