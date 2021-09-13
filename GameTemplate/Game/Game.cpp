@@ -3,8 +3,6 @@
 
 Game::Game()
 {
-	m_playerPosition = { 0,0,0 };
-
 	m_playerModel = NewGO<SkinModelRender>(0);
 	m_playerModel->Init(filePath::tkm::PlayerModel);
 }

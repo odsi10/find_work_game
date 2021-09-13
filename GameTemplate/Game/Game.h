@@ -14,6 +14,5 @@ public:
 
 private:
 	SkinModelRender* m_playerModel = nullptr;
-	Vector3 m_playerPosition = { 0,0,0 };
 };
 
