@@ -215,16 +215,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>ソース ファイル\makeengine</Filter>
-    </ClCompile>
     <ClCompile Include="SkinModelRender.cpp">
-      <Filter>ソース ファイル\makeengine</Filter>
-    </ClCompile>
-    <ClCompile Include="Shadow.cpp">
       <Filter>ソース ファイル\makeengine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -415,17 +406,11 @@
     <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>ソース ファイル\makeengine</Filter>
-    </ClInclude>
     <ClInclude Include="SkinModelRender.h">
       <Filter>ソース ファイル\makeengine</Filter>
     </ClInclude>
-    <ClInclude Include="Shadow.h">
-      <Filter>ソース ファイル\makeengine</Filter>
+    <ClInclude Include="Name.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
