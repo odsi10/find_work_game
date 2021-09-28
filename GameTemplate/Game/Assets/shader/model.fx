@@ -196,6 +196,15 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	//拡散反射光と鏡面反射光を足し算して、最終的な光を求める。
 	float3 lig = diffuseLig + specularLig;
 
+	///環境光の実装時に追加
+
+	//ライトの効果を一律で底上げする。
+	lig.x += 0.3f;
+	lig.y += 0.3f;
+	lig.z += 0.3f;
+
+	///環境光の実装時に追加ここまで
+
 	///拡散反射実装時に追加ここまで
 
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
