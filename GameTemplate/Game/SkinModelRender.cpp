@@ -57,6 +57,7 @@ void SkinModelRender::InitModel(const char* filePath,
 // ライトごとの初期化
 //////////////////////////////
 
+//ディレクションライト
 void SkinModelRender::InitDirectionLight()
 {
 	//ライトは斜め上から当たっている。
@@ -70,6 +71,7 @@ void SkinModelRender::InitDirectionLight()
 	m_light.ligColor.y = 1.5f;
 	m_light.ligColor.z = 1.5f;
 
+	//拡散反射
 	//視点の位置を設定
 	m_light.eyePos = g_camera3D->GetPosition();
 }

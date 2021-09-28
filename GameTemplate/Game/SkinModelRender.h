@@ -7,6 +7,7 @@
 
 //ライト用の構造体を定義する。
 struct Light {
+	//ディレクションライト
 	Vector3 ligDirection;	//ライトの方向
 	//HLSL側の定数バッファのfloat3型の変数は
 	//16の倍数のアドレスに配置されるため、
@@ -14,6 +15,7 @@ struct Light {
 	float dirPad;
 	Vector3 ligColor;	//ライトのカラー。
 
+	//拡散反射
 	//構造体に視点の位置を追加する
 	Vector3 eyePos; //視点の位置
 	float eyePad;
@@ -21,7 +23,7 @@ struct Light {
 
 class SkinModelRender : public IGameObject
 {
-public:
+public:	//コンストラクタ諸々
 	SkinModelRender();
 	~SkinModelRender();
 	bool Start() override final;
@@ -53,7 +55,7 @@ private: //データメンバ
 
 	const char* m_tkmFilePath = nullptr; //tkmファイルのファイルパス
 
-	Light m_light;
+	Light m_light;	//ライト
 
 	Vector3 m_position = g_vec3Zero;			//位置
 	Quaternion m_rotation = g_quatIdentity;		//回転
