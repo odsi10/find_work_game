@@ -73,15 +73,15 @@ void SkinModelRender::InitModel(const char* filePath,
 void SkinModelRender::InitDirectionLight()
 {
 	//ライトは斜め上から当たっている。
-	m_light.dirDirection.x = 1.0f;
-	m_light.dirDirection.y = -1.0f;
-	m_light.dirDirection.z = -1.0f;
+	m_light.ligDirection.x = 1.0f;
+	m_light.ligDirection.y = -1.0f;
+	m_light.ligDirection.z = -1.0f;
 	//正規化する。
-	m_light.dirDirection.Normalize();
+	m_light.ligDirection.Normalize();
 	//ライトのカラーの設定（ライトの強さ）
-	m_light.dirColor.x = 1.5f;
-	m_light.dirColor.y = 1.5f;
-	m_light.dirColor.z = 1.5f;
+	m_light.ligColor.x = 1.5f;
+	m_light.ligColor.y = 1.5f;
+	m_light.ligColor.z = 1.5f;
 
 	//視点の位置を設定
 	m_light.eyePos = g_camera3D->GetPosition();

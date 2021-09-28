@@ -8,15 +8,16 @@
 //ライト用の構造体を定義する
 struct Light {
 	//ディレクションライト
-	Vector3 dirDirection; //ライトの方向
+	Vector3 ligDirection; //ライトの方向
+	//HLSL側の定数バッファのfloat3型の変数は16の倍数アドレスに配置されるため、
 	//C++側にはパディングを埋めておく。
 	float pad;
-	Vector3 dirColor;
+	Vector3 ligColor;
 	float dirPad;
 
 	//ポイントライト
 	Vector3 ptPosition; //位置
-	float ptPad;			//パディング
+	float ptPad;		//パディング
 	Vector3 ptColor;	//カラー
 	float ptRange;		//影響範囲
 
