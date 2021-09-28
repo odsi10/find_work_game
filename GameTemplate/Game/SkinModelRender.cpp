@@ -35,6 +35,10 @@ void SkinModelRender::InitModel(const char* filePath,
 	//ライトの設定
 	//ディレクションライトを初期化する。
 	InitDirectionLight();
+
+	//環境光を初期化する
+	//InitAmbientLight();
+
 	//3Dモデルをロードするための情報を設定する
 	ModelInitData modelInitData;
 	
@@ -74,6 +78,18 @@ void SkinModelRender::InitDirectionLight()
 	//拡散反射
 	//視点の位置を設定
 	m_light.eyePos = g_camera3D->GetPosition();
+}
+
+void SkinModelRender::InitAmbientLight()
+{
+	///環境光の実装時に追加
+
+	//ライトの効果を一律で底上げする。
+	m_light.ambientLight.x += 0.1f;
+	m_light.ambientLight.y += 0.1f;
+	m_light.ambientLight.z += 0.1f;
+
+	///環境光の実装時に追加ここまで
 }
 
 ////////////////////////////////////////////////////////////

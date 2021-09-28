@@ -19,6 +19,10 @@ struct Light {
 	//構造体に視点の位置を追加する
 	Vector3 eyePos; //視点の位置
 	float eyePad;
+
+	//環境光
+	Vector3 ambientLight;   // アンビエントライト
+	float ambiPad;
 };
 
 class SkinModelRender : public IGameObject
@@ -49,6 +53,10 @@ private:
 	);
 
 	void InitDirectionLight(); //ディレクションライト
+	void InitPointLight(); //ポイントライト
+	void InitSpotLight(); //スポットライト
+	void InitAmbientLight(); //環境光
+	void InitHemiLight(); //半球ライト
 
 private: //データメンバ
 	Model m_model;
