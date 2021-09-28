@@ -13,6 +13,14 @@ cbuffer ModelCb : register(b0){
 	float4x4 mProj;
 };
 
+//ディレクションライトのデータを受け取るための
+//定数バッファを用意する
+cbuffer DirectionLightCb : register(b1)
+{
+	float3 ligDirection;//ライトの方向
+	float3 ligColor;	//ライトのカラー
+};
+
 ////////////////////////////////////////////////
 // 構造体
 ////////////////////////////////////////////////
@@ -24,12 +32,14 @@ struct SSkinVSIn{
 //頂点シェーダーへの入力。
 struct SVSIn{
 	float4 pos 		: POSITION;		//モデルの頂点座標。
+	float3 normal   : NORMAL;
 	float2 uv 		: TEXCOORD0;	//UV座標。
 	SSkinVSIn skinVert;				//スキン用のデータ。
 };
 //ピクセルシェーダーへの入力。
 struct SPSIn{
 	float4 pos 			: SV_POSITION;	//スクリーン空間でのピクセルの座標。
+	float3 normal		: NORMAL;
 	float2 uv 			: TEXCOORD0;	//uv座標。
 };
 
@@ -79,6 +89,8 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 	psIn.pos = mul(mView, psIn.pos);
 	psIn.pos = mul(mProj, psIn.pos);
 
+	psIn.normal = mul(m, vsIn.normal);//法線を回転させる。
+
 	psIn.uv = vsIn.uv;
 
 	return psIn;
@@ -101,8 +113,25 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// <summary>
 /// ピクセルシェーダーのエントリー関数。
 /// </summary>
-float4 PSMain( SPSIn psIn ) : SV_Target0
+float4 PSMain(SPSIn psIn) : SV_Target0
 {
+	//ピクセルの法線とライトの方向の内積を計算する。
+	float inner_product = dot(psIn.normal,ligDirection);
+	//内積の結果に-１を乗算する。
+	inner_product *= -1.0f;
+
+	//内積の結果が0以下なら0にする。
+	if (inner_product < 0.0f) {
+		inner_product = 0.0f;
+	}
+
+	//ピクセルが受けている光を求める。
+	float3 diffuseLig = ligColor * inner_product;
+
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
+	
+	//最終出力カラーに光を乗算する。
+	albedoColor.xyz *= diffuseLig;
+
 	return albedoColor;
 }

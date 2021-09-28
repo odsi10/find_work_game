@@ -218,9 +218,6 @@
     <ClCompile Include="SkinModelRender.cpp">
       <Filter>ソース ファイル\makeengine</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>ソース ファイル\makeengine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -414,9 +411,6 @@
     </ClInclude>
     <ClInclude Include="Name.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>ソース ファイル\makeengine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

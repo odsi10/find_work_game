@@ -5,43 +5,18 @@
 
 #include"Name.h"
 
-//ライト用の構造体を定義する
+//ライト用の構造体を定義する。
 struct Light {
-	//ディレクションライト
-	Vector3 dirDirection; //ライトの方向
+	Vector3 ligDirection;	//ライトの方向
+	//HLSL側の定数バッファのfloat3型の変数は
+	//16の倍数のアドレスに配置されるため、
 	//C++側にはパディングを埋めておく。
-	float pad;
-	Vector3 dirColor;
 	float dirPad;
-
-	//ポイントライト
-	Vector3 ptPosition; //位置
-	float ptPad;			//パディング
-	Vector3 ptColor;	//カラー
-	float ptRange;		//影響範囲
-
-	//スポットライト
-	Vector3 spPosition;		//位置
-	float spPad;				//パディング
-	Vector3 spColor;		//カラー
-	float spRange;			//影響範囲
-	Vector3 spDirection;	//射出方向
-	float spAngle;			//射出角度
+	Vector3 ligColor;	//ライトのカラー。
 
 	//構造体に視点の位置を追加する
 	Vector3 eyePos; //視点の位置
 	float eyePad;
-
-	//環境光
-	Vector3 ambientLight;   // アンビエントライト
-	float ambPad;
-
-	//半球ライト
-	Vector3 groundColor;	//地面色
-	float groPad;
-	Vector3 skyColor;		//天球色
-	float skyPad;
-	Vector3 groundNormal;	//地面の法線
 };
 
 class SkinModelRender : public IGameObject
@@ -72,10 +47,6 @@ private:
 	);
 
 	void InitDirectionLight(); //ディレクションライト
-	void InitPointLight(); //ポイントライト
-	void InitSpotLight(); //スポットライト
-	void InitAmbientLight(); //環境光
-	void InitHemiLight(); //半球ライト
 
 private: //データメンバ
 	Model m_model;
