@@ -4,21 +4,15 @@
 #include "SkinModelRender.h"
 #include "Name.h"
 
-//他クラスを使うために宣言をする
-class SkinModelRender;
-class Player;
-class BackGround;
-
-class Game : public IGameObject
+class BackGround : public IGameObject
 {
 public:	//コンストラクタ諸々
-	Game();
-	~Game();
+	BackGround();
+	~BackGround();
 	bool Start() override final;
 	void Update() override final;
 
 private:	//データメンバ
-	BackGround* m_backGround = nullptr;
-	Player* m_player = nullptr;
+	SkinModelRender* m_backGroundModel = nullptr;
 };
 

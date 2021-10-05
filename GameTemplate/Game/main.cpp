@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 
-#include"Game.h"
+#include "Game.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。

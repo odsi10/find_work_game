@@ -15,8 +15,8 @@ bool SkinModelRender::Start()
 }
 
 void SkinModelRender::Init(const char* filePath,
-	enModelUpAxis::EnModelUpAxis modelUpAxis
-	/*AnimationClip* animationClip,
+	enModelUpAxis::EnModelUpAxis modelUpAxis/*,
+	AnimationClip* animationClip,
 	int maxAnimationClipNum*/
 )
 {
@@ -85,10 +85,10 @@ void SkinModelRender::InitModel(const char* filePath,
 	InitDirectionLight();
 
 	//ポイントライトを初期化する
-	InitPointLight();
+	//InitPointLight();
 
 	//スポットライトを初期化する
-	InitSpotLight();
+	//InitSpotLight();
 
 	//環境光を初期化する
 	InitAmbientLight();
@@ -181,9 +181,9 @@ void SkinModelRender::InitSpotLight()
 void SkinModelRender::InitAmbientLight()
 {
 	//環境光
-	m_light.ambientLight.x = 0.05f;
-	m_light.ambientLight.y = 0.05f;
-	m_light.ambientLight.z = 0.05f;
+	m_light.ambientLight.x = 0.5f;
+	m_light.ambientLight.y = 0.5f;
+	m_light.ambientLight.z = 0.5f;
 }
 
 void SkinModelRender::InitHemiLight()
@@ -235,13 +235,23 @@ void SkinModelRender::Update()
 		m_animationPointer->Progress(g_gameTime->GetFrameDeltaTime());
 	}
 
-	m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
-	if (g_pad[0]->IsPress(enButtonB)) {
-		m_light.ptPosition.y += g_pad[0]->GetLStickYF();
-	}
-	else {
-		m_light.ptPosition.z -= g_pad[0]->GetLStickYF();
-	}
+	//ポイントライトとスポットライトが当たるかの確認
+
+	//m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
+	//if (g_pad[0]->IsPress(enButtonB)) {
+	//	m_light.ptPosition.y += g_pad[0]->GetLStickYF();
+	//}
+	//else {
+	//	m_light.ptPosition.z -= g_pad[0]->GetLStickYF();
+	//}
+
+	//m_light.spPosition.x -= g_pad[0]->GetLStickXF();
+	//if (g_pad[0]->IsPress(enButtonB)) {
+	//	m_light.spPosition.y += g_pad[0]->GetLStickYF();
+	//}
+	//else {
+	//	m_light.spPosition.z -= g_pad[0]->GetLStickYF();
+	//}
 
 	//モデルの座標更新
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);

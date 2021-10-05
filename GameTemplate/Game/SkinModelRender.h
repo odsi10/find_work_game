@@ -65,8 +65,8 @@ public:
 
 
 	void Init(const char* filePath,
-		enModelUpAxis::EnModelUpAxis modelUpAxis = enModelUpAxis::enModelUpAxisZ
-		/*AnimationClip* animationClip = nullptr,
+		enModelUpAxis::EnModelUpAxis modelUpAxis = enModelUpAxis::enModelUpAxisZ/*,
+		AnimationClip* animationClip = nullptr,
 		int maxAnimationClipNum = 0*/
 	);
 
