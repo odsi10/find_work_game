@@ -4,6 +4,8 @@
 #include"SkinModelRender.h"
 #include"Name.h"
 
+class SkinModelRender;
+
 class Game : public IGameObject
 {
 public:
@@ -14,5 +16,6 @@ public:
 
 private:
 	SkinModelRender* m_playerModel = nullptr;
+	SkinModelRender* m_backGround = nullptr;
 };
 

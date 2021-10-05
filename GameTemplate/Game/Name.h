@@ -8,6 +8,7 @@ namespace filePath	//ファイルパス
 {
 	namespace tkm	//モデル
 	{
-		constexpr const char* PlayerModel = "Assets/modelData/unityChan.tkm";
+		constexpr const char* PlayerModel = "Assets/modelData/player.tkm";
+		constexpr const char* BackGround = "Assets/modelData/bg/bg.tkm";
 	}
 }
