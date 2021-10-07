@@ -10,6 +10,8 @@ class GraphicsEngine;
 /// </summary>
 class RenderTarget {
 public:
+	
+	~RenderTarget();
 	/// <summary>
 	/// レンダリングターゲットの作成。
 	/// </summary>
@@ -77,6 +79,7 @@ public:
 	{
 		return m_height;
 	}
+
 	const float* GetRTVClearColor() const
 	{
 		return m_rtvClearColor;
@@ -85,6 +88,16 @@ public:
 	{
 		return m_dsvClearValue;
 	}
+
+	/// <summary>
+	/// カラーバッファのフォーマットを取得。
+	/// </summary>
+	/// <returns></returns>
+	DXGI_FORMAT GetColorBufferFormat() const
+	{
+		return m_renderTargetTexture.GetFormat();
+	}
+
 private:
 	/// <summary>
 	/// ディスクリプタヒープを作成。

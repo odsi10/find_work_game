@@ -27,6 +27,16 @@ struct ModelInitData {
 	IShaderResource* m_expandShaderResoruceView = nullptr;			//ユーザー拡張のシェーダーリソース。
 	Skeleton* m_skeleton = nullptr;									//スケルトン。
 	enModelUpAxis::EnModelUpAxis m_modelUpAxis = enModelUpAxis::enModelUpAxisZ;					//モデルの上方向。
+	std::array<DXGI_FORMAT, MAX_RENDERING_TARGET> m_colorBufferFormat = {
+		DXGI_FORMAT_R8G8B8A8_UNORM,
+		DXGI_FORMAT_UNKNOWN,
+		DXGI_FORMAT_UNKNOWN,
+		DXGI_FORMAT_UNKNOWN,
+		DXGI_FORMAT_UNKNOWN,
+		DXGI_FORMAT_UNKNOWN,
+		DXGI_FORMAT_UNKNOWN,
+		DXGI_FORMAT_UNKNOWN,
+	};	//レンダリングするカラーバッファのフォーマット。
 };
 
 /// <summary>

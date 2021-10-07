@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "Game.h"
 
+//他クラスをインクルードする
+#include "Player.h"
+#include "BackGround.h"
+
 Game::Game()
 {
-	m_playerModel = NewGO<SkinModelRender>(0);
-	m_playerModel->Init(filePath::tkm::PlayerModel);
 }
 
 Game::~Game()
@@ -13,6 +15,9 @@ Game::~Game()
 
 bool Game::Start()
 {
+	m_backGround = NewGO<BackGround>(0);
+
+	m_player = NewGO<Player>(0);
 
 	return true;
 }
