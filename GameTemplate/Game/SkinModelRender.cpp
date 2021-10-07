@@ -91,7 +91,7 @@ void SkinModelRender::InitModel(const char* filePath,
 	//InitSpotLight();
 
 	//環境光を初期化する
-	//InitAmbientLight();
+	InitAmbientLight();
 
 	//半球ライトを初期化する
 	//InitHemiLight();
@@ -224,6 +224,15 @@ void SkinModelRender::Update()
 	//未初期化時
 	if (m_finishInit == false) {
 		return;
+	}
+
+	//スケルトンを更新。
+	if (m_skeletonPointer) {	//スケルトンが初期化されていたら
+		m_skeletonPointer->Update(m_model.GetWorldMatrix());
+	}
+	//アニメーションを進める。
+	if (m_animationPointer) {	//アニメーションが初期化されていたら
+		m_animationPointer->Progress(g_gameTime->GetFrameDeltaTime());
 	}
 
 	//スケルトンを更新。
