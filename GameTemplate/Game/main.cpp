@@ -3,38 +3,16 @@
 
 //他クラスをインクルードする
 #include"Game.h"
-#include"GaussianBlur.h"
-
-const int NUM_DIRECTIONAL_LIGHT = 4; // ディレクションライトの数
-
-/// <summary>
-/// ディレクションライト
-/// </summary>
-struct DirectionalLight
-{
-	Vector3 direction;  // ライトの方向
-	float pad0;         // パディング
-	Vector4 color;      // ライトのカラー
-};
-
-/// <summary>
-/// ライト構造体
-/// </summary>
-struct Light2
-{
-	DirectionalLight directionalLight[NUM_DIRECTIONAL_LIGHT]; // ディレクションライト
-	Vector3 eyePos;                 // カメラの位置
-	float specPow;                  // スペキュラの絞り
-	Vector3 ambinetLight;           // 環境光
-};
+#include"Bloom.h"
 
 const int NUM_WEIGHTS = 8;
+
 /// <summary>
-/// ブラー用のパラメーター
+/// ブラー用のパラメータ
 /// </summary>
 struct SBlurParam
 {
-	float weights[NUM_WEIGHTS];
+    float weights[NUM_WEIGHTS];
 };
 
 void InitRootSignature(RootSignature& rs);
@@ -58,59 +36,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	Game* m_game = NewGO<Game>(0);
 
+    Bloom* m_bloom = NewGO<Bloom>(0);
+
     RootSignature rs;
     InitRootSignature(rs);
 
-    //メインレンダリングターゲットを作成する
+    // 32ビットの浮動小数点のカラーバッファーを保持したメインレンダリングターゲットを作成する
     RenderTarget mainRenderTarget;
     mainRenderTarget.Create(
         1280,
         720,
         1,
         1,
-        //カラーバッファのフォーマットを32bit浮動小数点にしている。
+        // 【注目】カラーバッファーのフォーマットを32bit浮動小数点にしている
         DXGI_FORMAT_R32G32B32A32_FLOAT,
         DXGI_FORMAT_D32_FLOAT
     );
-
-    //強い光のライトを用意する
-    Light2 light;
-    //光を強めに設定する。
-    light.directionalLight[0].color.x = 5.8f;
-    light.directionalLight[0].color.y = 5.8f;
-    light.directionalLight[0].color.z = 5.8f;
-    
-    light.directionalLight[0].direction.x = 0.0f;
-    light.directionalLight[0].direction.y = 0.0f;
-    light.directionalLight[0].direction.z = -1.0f;
-    light.directionalLight[0].direction.Normalize();
-    
-    light.ambinetLight.x = 0.5f;
-    light.ambinetLight.y = 0.5f;
-    light.ambinetLight.z = 0.5f;
-    light.eyePos = g_camera3D->GetPosition();
-
-    // モデルの初期化情報を設定する
-    ModelInitData plModelInitData;
-
-    // tkmファイルを指定する
-    plModelInitData.m_tkmFilePath = "Assets/modelData/unityChan.tkm";
-
-    // シェーダーファイルを指定する
-    plModelInitData.m_fxFilePath = "Assets/shader/3D.fx";
-
-    // ユーザー拡張の定数バッファーに送るデータを指定する
-    plModelInitData.m_expandConstantBuffer = &light;
-
-    // ユーザー拡張の定数バッファーに送るデータのサイズを指定する
-    plModelInitData.m_expandConstantBufferSize = sizeof(light);
-
-    //レンダリングするカラーバッファーのフォーマットを指定する
-    plModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
-
-    // 設定した初期化情報をもとにモデルを初期化する
-    Model plModel;
-    plModel.Init(plModelInitData);
 
     //輝度抽出用のレンダリングターゲットを作成
     RenderTarget luminnceRenderTarget;
@@ -217,9 +158,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         renderContext.SetRenderTargetAndViewport(mainRenderTarget);
         //レンダリングターゲットをクリア。
         renderContext.ClearRenderTargetView(mainRenderTarget);
-
-        //mainRenderTargetに各種モデルを描画する
-        plModel.Draw(renderContext);
+        
+        GameObjectManager::GetInstance()->ExecuteRender(renderContext);
+        
         //レンダリングターゲットのへの書き込み終了待ち。
         renderContext.WaitUntilFinishDrawingToRenderTarget(mainRenderTarget);
 
@@ -257,11 +198,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
             g_graphicsEngine->GetCurrentFrameBuffuerDSV()
         );
         copyToFrameBufferSprite.Draw(renderContext);
-
-        // ライトの強さを変更する
-        light.directionalLight[0].color.x += g_pad[0]->GetLStickXF() * 0.5f;
-        light.directionalLight[0].color.y += g_pad[0]->GetLStickXF() * 0.5f;
-        light.directionalLight[0].color.z += g_pad[0]->GetLStickXF() * 0.5f;
 
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！

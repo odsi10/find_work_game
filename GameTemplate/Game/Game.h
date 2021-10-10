@@ -3,11 +3,12 @@
 //他クラスをインクルードする
 #include "SkinModelRender.h"
 #include "Name.h"
+#include "Bloom.h"
 
 //他クラスを使うために宣言をする
 class SkinModelRender;
-class Player;
 class BackGround;
+class Player;
 
 class Game : public IGameObject
 {

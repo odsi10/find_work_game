@@ -354,8 +354,8 @@ float3 CalcLigFromPointLight(SPSIn psIn)
 	//影響率を距離に比例して小さくする。
 	float affect = 1.0f - 1.0f / ptRange * distance;
 	//影響力がマイナスにならないように補正をかける。
-	if (affect < 0.0f) {
-		affect = 0.0f;
+	if (affect <= 0.0f) {
+		affect = 0.00001f;
 	}
 	//影響の仕方を指数関数的にする。
 	affect = pow(affect, 3.0f);
@@ -401,8 +401,8 @@ float3 CalcLigFromSpotLight(SPSIn psIn)
 	//影響率は距離に比例して小さくなっていく。
 	float affect = 1.0f - 1.0f / spRange * distance;
 	//影響力がマイナスにならないように補正をかける。
-	if (affect < 0.0f) {
-		affect = 0.0f;
+	if (affect <= 0.0f) {
+		affect = 0.0001f;
 	}
 	//影響の仕方を指数関数的にする。
 	affect = pow(affect, 3.0f);
@@ -414,15 +414,28 @@ float3 CalcLigFromSpotLight(SPSIn psIn)
 	//入射光と射出方向の角度を求める
 	//内積を求める。
 	float angle = dot(ligDir, spDirection);
+	
 	//角度を求める。
-	angle = acos(angle);
+	//angle = acos(angle);
+	if (-1 < angle && angle < 1)
+	{
+		angle = acos(angle);
+	}
+	else if (angle > 0.9)
+	{
+		angle = 0;
+	}
+	else
+	{
+		angle = acos(-1.0f);
+	}
 
 	//角度による影響率を求める
 	//角度に比例して小さくなっていく影響率を計算
 	affect = 1.0f - 1.0f / spAngle * angle;
 	//影響力がマイナスにならないように補正をかける。
-	if (affect < 0.0f) {
-		affect = 0.0f;
+	if (affect <= 0.0f) {
+		affect = 0.001f;
 	}
 	//影響の仕方を指数関数的にする。
 	affect = pow(affect, 0.5f);
@@ -448,6 +461,11 @@ float CalcLigFromRimLight(SPSIn psIn)
 
 	//最終的なリムの強さを求める
 	float rimPower = power1 * power2;
+
+	if (rimPower <= 0.0f)
+	{
+		rimPower = 0.0001f;
+	}
 
 	//pow()を使用して、強さの変化を指数関数的にする。
 	return pow(rimPower, 1.3f);

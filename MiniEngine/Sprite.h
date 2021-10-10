@@ -46,6 +46,8 @@ struct SpriteInitData {
 		DXGI_FORMAT_UNKNOWN,
 		DXGI_FORMAT_UNKNOWN,
 	};	//レンダリングするカラーバッファのフォーマット。
+
+	//DXGI_FORMAT m_colorBufferFormat = DXGI_FORMAT_R8G8B8A8_UNORM;	//レンダリングするカラーバッファのフォーマット。
 };
 /// <summary>
 /// スプライトクラス。

@@ -14,6 +14,8 @@
 #include "NullTextureMaps.h"
 #include "font/FontEngine.h"
 
+#include "RenderTarget.h"
+
 /// <summary>
 /// DirectX12に依存するグラフィックスエンジン
 /// </summary>
@@ -310,6 +312,19 @@ private:
 	FontEngine m_fontEngine;					//フォントエンジン。
 	public:
 	std::unique_ptr<DirectX::GraphicsMemory> m_directXTKGfxMemroy;	//DirectXTKのグラフィックメモリシステム。
+	
+private:
+	RenderTarget m_mainRenderTarget;	//メインレンダリングターゲット	
+
+public:		//メンバ関数
+	/// <summary>
+	/// メインレンダリングターゲットの取得。
+	/// </summary>
+	/// <returns>メインレンダリングターゲット</returns>
+	RenderTarget& GetMainRenderTarget()
+	{
+		return m_mainRenderTarget;
+	}
 };
 extern GraphicsEngine* g_graphicsEngine;	//グラフィックスエンジン
 extern Camera* g_camera2D;					//2Dカメラ。

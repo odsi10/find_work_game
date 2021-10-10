@@ -61,7 +61,7 @@ struct SPSIn
 // グローバル変数
 ///////////////////////////////////////////////////
 
-// step-1 アルベドマップ、法線マップ、スペキュラマップにアクセスするための変数を追加
+// アルベドマップ、法線マップ、スペキュラマップにアクセスするための変数を追加
 Texture2D<float4> g_albedo : register(t0);      // アルベドマップ
 Texture2D<float4> g_normalMap : register(t1);   // 法線マップ
 Texture2D<float4> g_specularMap : register(t2); // スペキュラマップ。rgbにスペキュラカラー、aに金属度
@@ -157,11 +157,11 @@ float CookTrranceSpecular(float3 L, float3 V, float3 N, float metaric)
 /// <param name="roughness">粗さ。0～1の範囲。</param>
 float CalcDiffuseFromFresnel(float3 N, float3 L, float3 V)
 {
-    // step-4 フレネル反射を考慮した拡散反射光を求める
+    // フレネル反射を考慮した拡散反射光を求める
     // 光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
     float3 H = normalize(L+V);
 
-    // 3. 法線と光源に向かうベクトルがどれだけ似ているかを内積で求める
+    // 法線と光源に向かうベクトルがどれだけ似ているかを内積で求める
     float dotNL = saturate(dot(N,L));
 
     float dotNV = saturate(dot(N,V));
@@ -197,7 +197,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // 法線を計算
     float3 normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
 
-    // step-2 アルベドカラー、スペキュラカラー、金属度をサンプリングする
+    //アルベドカラー、スペキュラカラー、金属度をサンプリングする
     // アルベドカラー（拡散反射光）
     float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 
@@ -213,7 +213,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     float3 lig = 0;
     for(int ligNo = 0; ligNo < NUM_DIRECTIONAL_LIGHT; ligNo++)
     {
-        // step-3 ディズニーベースの拡散反射を実装する
+        // ディズニーベースの拡散反射を実装する
 
         // フレネル反射を考慮した拡散反射を計算
         float diffuseFromFresnel = CalcDiffuseFromFresnel(normal, -directionalLight[ligNo].direction, toEye);
@@ -225,7 +225,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
         // 最終的な拡散反射光を計算する
         float3 diffuse = albedoColor * diffuseFromFresnel * lambertDiffuse;
 
-        // step-6 クックトランスモデルを利用した鏡面反射率を計算する
+        // クックトランスモデルを利用した鏡面反射率を計算する
 
         // クックトランスモデルの鏡面反射率を計算する
         float3 spec = CookTrranceSpecular(-directionalLight[ligNo].direction, toEye, normal, metaric) * directionalLight[ligNo].color;
@@ -235,7 +235,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
         float specTerm = length(specColor.xyz);
         spec *= lerp(float3(specTerm, specTerm, specTerm), specColor, metaric);
 
-        // step-7 鏡面反射率を使って、拡散反射光と鏡面反射光を合成する
+        // 鏡面反射率を使って、拡散反射光と鏡面反射光を合成する
 
         // 鏡面反射率が高ければ、拡散反射は弱くなる
         lig += diffuse * (1.0f - specTerm) + spec;
