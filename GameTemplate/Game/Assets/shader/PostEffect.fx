@@ -42,7 +42,7 @@ sampler Sampler : register(s0);
  */
 float4 PSSamplingLuminance(PSInput In) : SV_Target0
 {
-    // step-14 輝度を抽出するピクセルシェーダーを実装
+    // 輝度を抽出するピクセルシェーダーを実装
     //メインレンダリングターゲットからカラーをサンプリング。
     float4 color = mainRenderTargetTexture.Sample(Sampler, In.uv);
     //サンプリングしたカラーの明るさを計算。
@@ -62,7 +62,7 @@ Texture2D<float4> g_bokeTexture_3 : register(t3);
 
 float4 PSBloomFinal(PSInput In) : SV_Target0
 {
-    // step-6 ボケ画像をサンプリングして、平均をとって出力する
+    // ボケ画像をサンプリングして、平均をとって出力する
     float4 combineColor = g_bokeTexture_0.Sample(Sampler, In.uv);
     combineColor += g_bokeTexture_1.Sample(Sampler, In.uv);
     combineColor += g_bokeTexture_2.Sample(Sampler, In.uv);

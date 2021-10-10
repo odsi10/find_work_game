@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "SkinModelRender.h"
 
+//他クラスをインクルードする
+#include "Bloom.h"
+
 SkinModelRender::SkinModelRender()
 {
 }
@@ -115,6 +118,8 @@ void SkinModelRender::InitModel(const char* filePath,
 	modelInitData.m_expandConstantBufferSize = sizeof(m_light);
 	//初期化情報を使ってモデル表示処理を初期化する
 	m_model.Init(modelInitData);
+
+	//m_bloom = NewGO<Bloom>(0);
 }
 
 //////////////////////////////
@@ -130,9 +135,9 @@ void SkinModelRender::InitDirectionLight()
 	//正規化する。
 	m_light.dirDirection.Normalize();
 	//ライトのカラーの設定（ライトの強さ）
-	m_light.dirColor.x = 1.0f;
-	m_light.dirColor.y = 1.0f;
-	m_light.dirColor.z = 1.0f;
+	m_light.dirColor.x = 0.5f;
+	m_light.dirColor.y = 0.5f;
+	m_light.dirColor.z = 0.5f;
 
 	//視点の位置を設定
 	m_light.eyePos = g_camera3D->GetPosition();
@@ -217,6 +222,7 @@ void SkinModelRender::Render(RenderContext& renderContext)
 
 	//モデルの描画
 	m_model.Draw(renderContext);
+	//m_bloom->DrawToMainRenderTarget(renderContext);
 }
 
 void SkinModelRender::Update()
@@ -251,6 +257,11 @@ void SkinModelRender::Update()
 	else {
 		m_light.ptPosition.z -= g_pad[0]->GetLStickYF();
 	}
+
+	// ライトの強さを変更する
+	m_light.dirColor.x += g_pad[0]->GetLStickXF() * 0.01f;
+	m_light.dirColor.y += g_pad[0]->GetLStickXF() * 0.01f;
+	m_light.dirColor.z += g_pad[0]->GetLStickXF() * 0.01f;
 
 	//モデルの座標更新
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);

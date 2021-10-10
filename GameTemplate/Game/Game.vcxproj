@@ -290,6 +290,7 @@
     <ClCompile Include="..\..\MiniEngine\tkFile\TksFile.cpp" />
     <ClCompile Include="..\..\MiniEngine\VertexBuffer.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Bloom.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GaussianBlur.cpp" />
     <ClCompile Include="main.cpp" />
@@ -367,6 +368,7 @@
     <ClInclude Include="..\..\MiniEngine\tkFile\TksFile.h" />
     <ClInclude Include="..\..\MiniEngine\VertexBuffer.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Bloom.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GaussianBlur.h" />
     <ClInclude Include="Name.h" />
