@@ -295,7 +295,7 @@
     <ClCompile Include="GaussianBlur.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SkinModelRender.cpp" />
+    <ClCompile Include="ModelRender.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -373,7 +373,7 @@
     <ClInclude Include="GaussianBlur.h" />
     <ClInclude Include="Name.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SkinModelRender.h" />
+    <ClInclude Include="ModelRender.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
   </ItemGroup>

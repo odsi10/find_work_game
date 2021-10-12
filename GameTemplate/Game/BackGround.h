@@ -1,7 +1,7 @@
 #pragma once
 
 //他クラスをインクルードする
-#include "SkinModelRender.h"
+#include "ModelRender.h"
 #include "Name.h"
 
 class BackGround : public IGameObject
@@ -13,6 +13,6 @@ public:	//コンストラクタ諸々
 	void Update() override final;
 
 private:	//データメンバ
-	SkinModelRender* m_backGroundModel = nullptr;
+	ModelRender* m_backGroundModel = nullptr;
 };
 

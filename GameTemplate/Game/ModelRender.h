@@ -3,8 +3,6 @@
 
 #include "Name.h"
 
-class Bloom;
-
 const int NUM_DIRECTIONAL_LIGHT = 4; // ディレクションライトの数
 
 //ライト用の構造体を定義する
@@ -49,11 +47,11 @@ struct Light {
 
 
 
-class SkinModelRender : public IGameObject
+class ModelRender : public IGameObject
 {
 public:
-	SkinModelRender();
-	~SkinModelRender();
+	ModelRender();
+	~ModelRender();
 	bool Start() override final;
 	void Update() override final;
 	void Render(RenderContext& renderContext) override final;
@@ -195,7 +193,6 @@ private: //data menber
 
 	const char* m_tkmFilePath = nullptr; //tkmファイルのファイルパス
 	Light m_light;						 //ライト
-	Bloom* m_bloom = nullptr;
 
 	Vector3 m_position = g_vec3Zero;			//位置
 	Quaternion m_rotation = g_quatIdentity;		//回転

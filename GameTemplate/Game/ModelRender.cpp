@@ -1,23 +1,23 @@
 #include "stdafx.h"
-#include "SkinModelRender.h"
+#include "ModelRender.h"
 
 //他クラスをインクルードする
 #include "Bloom.h"
 
-SkinModelRender::SkinModelRender()
+ModelRender::ModelRender()
 {
 }
 
-SkinModelRender::~SkinModelRender()
+ModelRender::~ModelRender()
 {
 }
 
-bool SkinModelRender::Start()
+bool ModelRender::Start()
 {
 	return true;
 }
 
-void SkinModelRender::Init(const char* filePath,
+void ModelRender::Init(const char* filePath,
 	enModelUpAxis::EnModelUpAxis modelUpAxis/*,
 	AnimationClip* animationClip,
 	int maxAnimationClipNum*/
@@ -36,7 +36,7 @@ void SkinModelRender::Init(const char* filePath,
 	m_finishInit = true;
 }
 
-bool SkinModelRender::InitSkeleton(const char* filePath)
+bool ModelRender::InitSkeleton(const char* filePath)
 {
 	//tkmファイルをtksファイルに変換
 	std::string skeletonFilePath = filePath;
@@ -61,7 +61,7 @@ bool SkinModelRender::InitSkeleton(const char* filePath)
 	}
 }
 
-void SkinModelRender::InitAnimation(AnimationClip* animationClip, int maxAnimationClipNum)
+void ModelRender::InitAnimation(AnimationClip* animationClip, int maxAnimationClipNum)
 {
 	//アニメ―ションクリップを登録しているか
 	if (animationClip == nullptr) {
@@ -79,7 +79,7 @@ void SkinModelRender::InitAnimation(AnimationClip* animationClip, int maxAnimati
 	);
 }
 
-void SkinModelRender::InitModel(const char* filePath,
+void ModelRender::InitModel(const char* filePath,
 	enModelUpAxis::EnModelUpAxis modelUpAxis
 )
 {
@@ -126,7 +126,7 @@ void SkinModelRender::InitModel(const char* filePath,
 // ライトごとの初期化
 //////////////////////////////
 
-void SkinModelRender::InitDirectionLight()
+void ModelRender::InitDirectionLight()
 {
 	//ライトは斜め上から当たっている。
 	m_light.dirDirection.x = 1.0f;
@@ -144,7 +144,7 @@ void SkinModelRender::InitDirectionLight()
 }
 
 
-void SkinModelRender::InitPointLight()
+void ModelRender::InitPointLight()
 {
 	//ポイントライトの初期座標を設定する
 	m_light.ptPosition.x = 0.0f;
@@ -160,7 +160,7 @@ void SkinModelRender::InitPointLight()
 	m_light.ptRange = 100.0f;
 }
 
-void SkinModelRender::InitSpotLight()
+void ModelRender::InitSpotLight()
 {
 	//初期座標
 	m_light.spPosition.x = 0.0f;
@@ -183,7 +183,7 @@ void SkinModelRender::InitSpotLight()
 	m_light.spAngle = Math::DegToRad(25.0f);
 }
 
-void SkinModelRender::InitAmbientLight()
+void ModelRender::InitAmbientLight()
 {
 	//環境光
 	m_light.ambientLight.x = 0.05f;
@@ -191,7 +191,7 @@ void SkinModelRender::InitAmbientLight()
 	m_light.ambientLight.z = 0.05f;
 }
 
-void SkinModelRender::InitHemiLight()
+void ModelRender::InitHemiLight()
 {
 	//地面色、天球色、地面の法線のデータを設定する
 	m_light.groundColor.x = 0.7f;
@@ -213,7 +213,7 @@ void SkinModelRender::InitHemiLight()
 // 描画処理
 ////////////////////////////////////////////////////////////
 
-void SkinModelRender::Render(RenderContext& renderContext)
+void ModelRender::Render(RenderContext& renderContext)
 {
 	//未初期化時
 	if (m_finishInit == false) {
@@ -225,7 +225,7 @@ void SkinModelRender::Render(RenderContext& renderContext)
 	//m_bloom->DrawToMainRenderTarget(renderContext);
 }
 
-void SkinModelRender::Update()
+void ModelRender::Update()
 {
 	//未初期化時
 	if (m_finishInit == false) {

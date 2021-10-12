@@ -63,8 +63,8 @@ void Bloom::Init()
     luminanceSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
 
     //作成した初期化情報をもとにスプライトを初期化する。
-    
     luminanceSprite.Init(luminanceSpriteInitData);
+
     //ガウシアンブラーを初期化
     
     //gaussianBlur[0]は輝度テクスチャにガウシアンブラーをかける。

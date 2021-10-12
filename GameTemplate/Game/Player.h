@@ -1,7 +1,7 @@
 #pragma once
 
 //他クラスをインクルードする
-#include "SkinModelRender.h"
+#include "ModelRender.h"
 #include "Name.h"
 
 class Player : public IGameObject
@@ -22,6 +22,6 @@ private:	//アニメーション
 	AnimationClip m_playerAnimation[AnimationMax];	//アニメーションクリップ
 
 private:
-	SkinModelRender* m_playerModel = nullptr;
+	ModelRender* m_playerModel = nullptr;
 };
 

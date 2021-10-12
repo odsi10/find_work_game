@@ -1,7 +1,7 @@
 #pragma once
 
 //他クラスをインクルードする
-#include "SkinModelRender.h"
+#include "ModelRender.h"
 #include "Name.h"
 #include "Bloom.h"
 
