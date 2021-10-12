@@ -5,7 +5,7 @@
 #include"Game.h"
 #include"Bloom.h"
 
-//void InitRootSignature(RootSignature& rs);
+void InitRootSignature(RootSignature& rs);
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -24,14 +24,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	GameObjectManager::CreateInstance();
 	PhysicsWorld::CreateInstance();
 
+	RootSignature rs;
+	InitRootSignature(rs);
+
 	//ゲームのインスタンスを作成。
 	Game* m_game = NewGO<Game>(0);
 
 	//ブルームのインスタンスを作成。
     Bloom* m_bloom = NewGO<Bloom>(0);
-
-    /*RootSignature rs;
-    InitRootSignature(rs);*/
 
 	//ブルームを初期化
     m_bloom->Init();
@@ -71,11 +71,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	return 0;
 }
 
-//// ルートシグネチャの初期化
-//void InitRootSignature(RootSignature& rs)
-//{
-//    rs.Init(D3D12_FILTER_MIN_MAG_MIP_LINEAR,
-//        D3D12_TEXTURE_ADDRESS_MODE_WRAP,
-//        D3D12_TEXTURE_ADDRESS_MODE_WRAP,
-//        D3D12_TEXTURE_ADDRESS_MODE_WRAP);
-//}
+// ルートシグネチャの初期化
+void InitRootSignature(RootSignature& rs)
+{
+    rs.Init(D3D12_FILTER_MIN_MAG_MIP_LINEAR,
+        D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+        D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+        D3D12_TEXTURE_ADDRESS_MODE_WRAP);
+}
