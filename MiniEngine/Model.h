@@ -65,6 +65,19 @@ public:
 	/// <param name="renderContext">レンダリングコンテキスト</param>
 	void Draw(RenderContext& renderContext);
 	/// <summary>
+	/// 描画(カメラ指定版)
+	/// </summary>
+	/// <param name="renderContext">レンダリングコンテキスト</param>
+	/// <param name="camera">カメラ</param>
+	void Draw(RenderContext& renderContext, Camera& camera);
+	/// <summary>
+	/// 描画(カメラ行列指定版)
+	/// </summary>
+	/// <param name="renderContext">レンダリングコンテキスト</param>
+	/// <param name="viewMatrix">ビュー行列</param>
+	/// <param name="projMatrix">プロジェクション行列</param>
+	void Draw(RenderContext& renderContext, const Matrix& viewMatrix, const Matrix& projMatrix);
+	/// <summary>
 	/// ワールド行列を取得。
 	/// </summary>
 	/// <returns></returns>

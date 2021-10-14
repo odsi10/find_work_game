@@ -4,6 +4,7 @@
 //他クラスをインクルードする
 #include"Game.h"
 #include"Bloom.h"
+#include"ModelStandard.h"
 
 void InitRootSignature(RootSignature& rs);
 
@@ -18,7 +19,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//////////////////////////////////////
 	// ここから初期化を行うコードを記述する。
 	//////////////////////////////////////
-	g_camera3D->SetPosition({ 0.0f, 50.0f, 150.0f });
+	g_camera3D->SetPosition({ 0.0f, 50.0f, 250.0f });
 
 	//ゲームオブジェクトマネージャーのインスタンスを作成する。
 	GameObjectManager::CreateInstance();
@@ -28,13 +29,82 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitRootSignature(rs);
 
 	//ゲームのインスタンスを作成。
-	Game* m_game = NewGO<Game>(0);
+	//Game* m_game = NewGO<Game>(0);
 
 	//ブルームのインスタンスを作成。
-    Bloom* m_bloom = NewGO<Bloom>(0);
+    //Bloom* m_bloom = NewGO<Bloom>(0);
 
 	//ブルームを初期化
-    m_bloom->Init();
+    //m_bloom->Init();
+
+    // 影描画用のライトカメラを作成する
+    Camera lightCamera;
+
+    // カメラの位置を設定。これはライトの位置
+    lightCamera.SetPosition(0, 500, 0);
+
+    // カメラの注視点を設定。これがライトが照らしている場所
+    lightCamera.SetTarget(0, 0, 0);
+
+    // 上方向を設定。今回はライトが真下を向いているので、X方向を上にしている
+    lightCamera.SetUp(1, 0, 0);
+
+    // ライトビュープロジェクション行列を計算している
+    lightCamera.Update();
+
+    // シャドウマップ描画用のレンダリングターゲットを作成する
+    float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    RenderTarget shadowMap;
+    shadowMap.Create(
+        1024,
+        1024,
+        1,
+        1,
+        DXGI_FORMAT_R32_FLOAT,
+        DXGI_FORMAT_D32_FLOAT,
+        clearColor
+    );
+
+    // シャドウマップに描画するモデルを初期化する
+    ModelInitData teapotShadowModelInitData;
+
+    // シャドウマップ描画用のシェーダーを指定する
+    teapotShadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
+    teapotShadowModelInitData.m_tkmFilePath = "Assets/modelData/teapot.tkm";
+    
+    //【注目】カラーバッファのフォーマットに変更が入ったので、こちらも変更する。
+    teapotShadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
+
+    Model teapotShadowModel;
+    teapotShadowModel.Init(teapotShadowModelInitData);
+    teapotShadowModel.UpdateWorldMatrix(
+        { 0, 50, 0 },
+        g_quatIdentity,
+        g_vec3One
+    );
+
+    // 通常描画のティーポットモデルを初期化
+    ModelStandard teapotModel;
+    teapotModel.Init("Assets/modelData/teapot.tkm");
+    teapotModel.Update(
+        { 0, 50, 0 },
+        g_quatIdentity,
+        g_vec3One
+    );
+
+    // step-1 影を受ける背景モデルを初期化
+    ModelInitData bgModelInitData;
+    //影が落とされるモデル用のシェーダーを指定する。
+    bgModelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+    //シャドウマップを拡張SRVに設定する。
+    bgModelInitData.m_expandShaderResoruceView = &shadowMap.GetRenderTargetTexture();
+    //ライトビュープロジェクション行列を拡張定数バッファに設定する。
+    bgModelInitData.m_expandConstantBuffer = (void*)&lightCamera.GetViewProjectionMatrix();
+    bgModelInitData.m_expandConstantBufferSize = sizeof(lightCamera.GetViewProjectionMatrix());
+    bgModelInitData.m_tkmFilePath = "Assets/modelData/bg/bg.tkm";
+
+    Model bgModel;
+    bgModel.Init(bgModelInitData);
 
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
@@ -54,13 +124,39 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		GameObjectManager::GetInstance()->ExecuteUpdate();
 
 		//レンダリングターゲットとして利用できるまで待つ。
-        m_bloom->DrowWait(renderContext);
+        //m_bloom->DrowWait(renderContext);
         
         GameObjectManager::GetInstance()->ExecuteRender(renderContext);
 
 		//ブルームを描画
-        m_bloom->DrowFinish(renderContext);
+        //m_bloom->DrowFinish(renderContext);
         
+        // シャドウマップにレンダリング
+        // レンダリングターゲットをシャドウマップに変更する
+        renderContext.WaitUntilToPossibleSetRenderTarget(shadowMap);
+        renderContext.SetRenderTargetAndViewport(shadowMap);
+        renderContext.ClearRenderTargetView(shadowMap);
+
+        // 影モデルを描画
+        teapotShadowModel.Draw(renderContext, lightCamera);
+
+        // 書き込み完了待ち
+        renderContext.WaitUntilFinishDrawingToRenderTarget(shadowMap);
+
+        // 通常レンダリング
+        // レンダリングターゲットをフレームバッファーに戻す
+        renderContext.SetRenderTarget(
+            g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+            g_graphicsEngine->GetCurrentFrameBuffuerDSV()
+        );
+        renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
+
+        // ティーポットモデルを描画
+        teapotModel.Draw(renderContext);
+
+        // step-2 影を受ける背景を描画
+        bgModel.Draw(renderContext);
+
 		//////////////////////////////////////
 		//絵を描くコードを書くのはここまで！！！
 		//////////////////////////////////////

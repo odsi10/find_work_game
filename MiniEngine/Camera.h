@@ -118,9 +118,14 @@ public:
 	/// <summary>
 	/// カメラの上方向を設定。
 	/// </summary>
-	void SetUp( const Vector3& up )
+	void SetUp(const Vector3& up)
 	{
 		m_up = up;
+		m_up.Normalize();
+	}
+	void SetUp(float x, float y, float z)
+	{
+		SetUp({ x, y, z });
 	}
 	/// <summary>
 	/// カメラの上方向を取得。
