@@ -32,6 +32,26 @@ void ModelRender::Init(const char* filePath,
 	////アニメーションを初期化
 	//InitAnimation(animationClip, maxAnimationClipNum);
 
+	// カメラの位置を設定。これはライトの位置
+	lightCamera.SetPosition(0, 500, 0);
+
+	// カメラの注視点を設定。これがライトが照らしている場所
+	lightCamera.SetTarget(0, 0, 0);
+
+	// 上方向を設定。今回はライトが真下を向いているので、X方向を上にしている
+	lightCamera.SetUp(1, 0, 0);
+
+	// ライトビュープロジェクション行列を計算している
+	lightCamera.Update();
+
+	if (m_shadowCasterFlag == true) {
+		InitShadowCaster(filePath);
+	}
+
+	if (m_shadowReceiverFlag == true) {
+		InitShadowvReceiver(filePath);
+	}
+
 	//初期化完了
 	m_finishInit = true;
 }
@@ -118,8 +138,6 @@ void ModelRender::InitModel(const char* filePath,
 	modelInitData.m_expandConstantBufferSize = sizeof(m_light);
 	//初期化情報を使ってモデル表示処理を初期化する
 	m_model.Init(modelInitData);
-
-	//m_bloom = NewGO<Bloom>(0);
 }
 
 //////////////////////////////
@@ -209,6 +227,52 @@ void ModelRender::InitHemiLight()
 	m_light.groundNormal.z = 0.0f;
 }
 
+void ModelRender::InitShadowCaster(const char* filePath)
+{
+	// シャドウマップ描画用のレンダリングターゲットを作成する
+	float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	
+	shadowMap.Create(
+		1024,
+		1024,
+		1,
+		1,
+		DXGI_FORMAT_R32_FLOAT,
+		DXGI_FORMAT_D32_FLOAT,
+		clearColor
+	);
+
+	// シャドウマップ描画用のシェーダーを指定する
+	ShadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
+	ShadowModelInitData.m_tkmFilePath = filePath;
+
+	//【注目】カラーバッファのフォーマットに変更が入ったので、こちらも変更する。
+	ShadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
+
+	
+	ShadowModel.Init(ShadowModelInitData);
+	ShadowModel.UpdateWorldMatrix(
+		{ 0, 50, 0 },
+		g_quatIdentity,
+		g_vec3One
+	);
+
+}
+
+void ModelRender::InitShadowvReceiver(const char* filePath)
+{
+	//影が落とされるモデル用のシェーダーを指定する。
+	ShadowReceiverModelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+	//シャドウマップを拡張SRVに設定する。
+	ShadowReceiverModelInitData.m_expandShaderResoruceView = &shadowMap.GetRenderTargetTexture();
+	//ライトビュープロジェクション行列を拡張定数バッファに設定する。
+	ShadowReceiverModelInitData.m_expandConstantBuffer = (void*)&lightCamera.GetViewProjectionMatrix();
+	ShadowReceiverModelInitData.m_expandConstantBufferSize = sizeof(lightCamera.GetViewProjectionMatrix());
+	ShadowReceiverModelInitData.m_tkmFilePath = filePath;
+
+	srModel.Init(ShadowReceiverModelInitData);
+}
+
 ////////////////////////////////////////////////////////////
 // 描画処理
 ////////////////////////////////////////////////////////////
@@ -222,7 +286,34 @@ void ModelRender::Render(RenderContext& renderContext)
 
 	//モデルの描画
 	m_model.Draw(renderContext);
-	//m_bloom->DrawToMainRenderTarget(renderContext);
+
+	// シャドウマップにレンダリング
+	// レンダリングターゲットをシャドウマップに変更する
+	if (m_shadowCasterFlag == true) {
+		renderContext.WaitUntilToPossibleSetRenderTarget(shadowMap);
+		renderContext.SetRenderTargetAndViewport(shadowMap);
+		renderContext.ClearRenderTargetView(shadowMap);
+
+		// 影モデルを描画
+		ShadowModel.Draw(renderContext, lightCamera);
+	}
+
+
+	// 書き込み完了待ち
+	if (m_shadowReceiverFlag == true) {
+		renderContext.WaitUntilFinishDrawingToRenderTarget(shadowMap);
+
+		// 通常レンダリング
+		// レンダリングターゲットをフレームバッファーに戻す
+		renderContext.SetRenderTarget(
+			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
+		);
+		renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
+
+		//step-2 影を受ける背景を描画
+		srModel.Draw(renderContext);
+	}
 }
 
 void ModelRender::Update()
@@ -250,13 +341,13 @@ void ModelRender::Update()
 		m_animationPointer->Progress(g_gameTime->GetFrameDeltaTime());
 	}
 
-	m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
+	/*m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
 	if (g_pad[0]->IsPress(enButtonB)) {
 		m_light.ptPosition.y += g_pad[0]->GetLStickYF();
 	}
 	else {
 		m_light.ptPosition.z -= g_pad[0]->GetLStickYF();
-	}
+	}*/
 
 	// ライトの強さを変更する
 	m_light.dirColor.x += g_pad[0]->GetLStickXF() * 0.01f;

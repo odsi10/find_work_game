@@ -98,6 +98,9 @@ private:
 	*/
 	void InitAnimation(AnimationClip* animationClip, int maxAnimationClipNum);
 
+	void InitShadowCaster(const char* filePath);	//シャドウキャスター
+	void InitShadowvReceiver(const char* filePath);	//シャドウレシーバー
+
 
 public:
 	/**
@@ -193,6 +196,18 @@ private: //data menber
 
 	const char* m_tkmFilePath = nullptr; //tkmファイルのファイルパス
 	Light m_light;						 //ライト
+
+	// 影描画用のライトカメラを作成する
+	Camera lightCamera;
+	RenderTarget shadowMap;
+	// シャドウマップに描画するモデルを初期化する
+	ModelInitData ShadowModelInitData;
+	Model ShadowModel;
+	// step-1 影を受ける背景モデルを初期化
+	ModelInitData ShadowReceiverModelInitData;
+	Model srModel;
+	bool m_shadowCasterFlag = true;
+	bool m_shadowReceiverFlag = true;
 
 	Vector3 m_position = g_vec3Zero;			//位置
 	Quaternion m_rotation = g_quatIdentity;		//回転
