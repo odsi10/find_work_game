@@ -20,9 +20,8 @@ public:	//メンバ関数
 	void DrowFinish(RenderContext& renderContext);
 
 private:	//データメンバ
-	RootSignature rs;
-	RenderTarget mainRenderTarget;
-	RenderTarget luminnceRenderTarget;
+	RenderTarget mainRenderTarget;	// 32ビットの浮動小数点のカラーバッファーを保持したメインレンダリングターゲットを作成する
+	RenderTarget luminnceRenderTarget;	// 輝度抽出用のレンダリングターゲットを作成
 	SpriteInitData luminanceSpriteInitData;
 	Sprite luminanceSprite;
 	GaussianBlur gaussianBlur[4];

@@ -98,10 +98,6 @@ private:
 	*/
 	void InitAnimation(AnimationClip* animationClip, int maxAnimationClipNum);
 
-	void InitShadowCaster(const char* filePath);	//シャドウキャスター
-	void InitShadowvReceiver(const char* filePath);	//シャドウレシーバー
-
-
 public:
 	/**
 	 * @brief アニメーションを再生する
@@ -146,8 +142,6 @@ public: //Get関数
 		return m_scale;
 	}
 
-
-
 public: //Set関数
 
 	void SetPosition(const Vector3 position)
@@ -169,7 +163,7 @@ public: //Set関数
 	{
 		m_position.y = 0.0f;
 	}
-
+	
 	void SetRotation(const Quaternion rotation)
 	{
 		m_rotation = rotation;
@@ -179,35 +173,22 @@ public: //Set関数
 		m_rotation.SetRotationX(rotX);
 	}
 
+	void SetRotationDegY(const float rotY) {
+		m_rotation.SetRotationDegY(rotY);
+	}
+
 	void SetScale(const Vector3 scale)
 	{
 		m_scale = scale;
 	}
-
-
-
-
 
 private: //data menber
 	Model m_model;	//モデル
 	std::unique_ptr<Skeleton> m_skeletonPointer; //スケルトンのポインター
 	std::unique_ptr<Animation> m_animationPointer; //アニメーションのポインター
 
-
 	const char* m_tkmFilePath = nullptr; //tkmファイルのファイルパス
 	Light m_light;						 //ライト
-
-	// 影描画用のライトカメラを作成する
-	Camera lightCamera;
-	RenderTarget shadowMap;
-	// シャドウマップに描画するモデルを初期化する
-	ModelInitData ShadowModelInitData;
-	Model ShadowModel;
-	// step-1 影を受ける背景モデルを初期化
-	ModelInitData ShadowReceiverModelInitData;
-	Model srModel;
-	bool m_shadowCasterFlag = true;
-	bool m_shadowReceiverFlag = true;
 
 	Vector3 m_position = g_vec3Zero;			//位置
 	Quaternion m_rotation = g_quatIdentity;		//回転

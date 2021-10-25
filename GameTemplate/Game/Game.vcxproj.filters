@@ -48,7 +48,7 @@
     <Filter Include="ExEngine\level2D">
       <UniqueIdentifier>{80abc458-e4b9-4836-89c7-3eb842072871}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\makeengine">
+    <Filter Include="makeengine">
       <UniqueIdentifier>{b336c9b9-584b-47a0-be49-39ae691ac93a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -216,10 +216,10 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ModelRender.cpp">
-      <Filter>ソース ファイル\makeengine</Filter>
+      <Filter>makeengine</Filter>
     </ClCompile>
     <ClCompile Include="GaussianBlur.cpp">
-      <Filter>ソース ファイル\makeengine</Filter>
+      <Filter>makeengine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\MiniEngine\RenderTarget.cpp">
       <Filter>MiniEngine</Filter>
@@ -231,7 +231,13 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Bloom.cpp">
-      <Filter>ソース ファイル\makeengine</Filter>
+      <Filter>makeengine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ModelStandard.cpp">
       <Filter>ソース ファイル</Filter>
@@ -425,13 +431,13 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ModelRender.h">
-      <Filter>ソース ファイル\makeengine</Filter>
+      <Filter>makeengine</Filter>
     </ClInclude>
     <ClInclude Include="Name.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GaussianBlur.h">
-      <Filter>ソース ファイル\makeengine</Filter>
+      <Filter>makeengine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\MiniEngine\RenderTarget.h">
       <Filter>MiniEngine</Filter>
@@ -443,7 +449,13 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Bloom.h">
-      <Filter>ソース ファイル\makeengine</Filter>
+      <Filter>makeengine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ModelStandard.h">
       <Filter>ヘッダー ファイル</Filter>
