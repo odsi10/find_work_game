@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "ModelRender.h"
 
+//他のクラスをインクルードする
+#include "ShadowMap.h"
+
 ModelRender::ModelRender()
 {
 }
@@ -30,6 +33,8 @@ void ModelRender::Init(const char* filePath,
 
 	////アニメーションを初期化
 	//InitAnimation(animationClip, maxAnimationClipNum);
+
+	InitShadowModel();
 
 	//初期化完了
 	m_finishInit = true;
@@ -205,6 +210,28 @@ void ModelRender::InitHemiLight()
 	m_light.groundNormal.x = 0.0f;
 	m_light.groundNormal.y = 1.0f;
 	m_light.groundNormal.z = 0.0f;
+}
+
+void ModelRender::InitShadowModel()
+{
+	//シャドウマップ描画用のシェーダーを指定する。
+	m_shadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
+
+	//【注目】カラーバッファのフォーマットに変更が入ったので、こちらも変更する。
+	m_shadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
+	
+	m_shadowModelInitData.m_tkmFilePath = m_tkmFilePath;
+	
+	m_ShadowModel.Init(m_shadowModelInitData);
+
+	m_ShadowModel.UpdateWorldMatrix(
+		m_position,
+		m_rotation,
+		m_scale
+	);
+
+	// コピーではなく参照を渡す
+	m_shadowMap->AddModel(m_ShadowModel);
 }
 
 ////////////////////////////////////////////////////////////

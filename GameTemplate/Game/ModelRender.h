@@ -1,4 +1,5 @@
 #pragma once
+// 他クラスをインクルードする
 #include <Model.h>
 
 #include "Name.h"
@@ -98,6 +99,8 @@ private:
 	*/
 	void InitAnimation(AnimationClip* animationClip, int maxAnimationClipNum);
 
+	void InitShadowModel();
+
 public:
 	/**
 	 * @brief アニメーションを再生する
@@ -142,6 +145,11 @@ public: //Get関数
 		return m_scale;
 	}
 
+	Model Getmodel()
+	{
+		m_ShadowModel;
+	}
+
 public: //Set関数
 
 	void SetPosition(const Vector3 position)
@@ -163,7 +171,7 @@ public: //Set関数
 	{
 		m_position.y = 0.0f;
 	}
-	
+
 	void SetRotation(const Quaternion rotation)
 	{
 		m_rotation = rotation;
@@ -195,4 +203,8 @@ private: //data menber
 	Vector3 m_scale = g_vec3One;				//拡大
 
 	bool m_finishInit = false; //初期化が終わったか
+
+	ModelInitData m_shadowModelInitData; //シャドウマップに描画するモデルを初期化する
+	Model m_ShadowModel;	//シャドウ用のモデルを初期化する
+
 };
