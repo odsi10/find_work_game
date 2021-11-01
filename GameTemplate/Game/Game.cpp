@@ -19,7 +19,7 @@ Game::~Game()
 	DeleteGO(m_enemy);
 }
 
-bool Game::Start(ShadowMap* shadowMap)
+bool Game::Start(ShadowMap& shadowMap)
 {
 	m_backGround = NewGO<BackGround>(priority::PriorityZero, findName::BackGround);
 

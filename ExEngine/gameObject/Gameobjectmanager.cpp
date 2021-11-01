@@ -36,7 +36,7 @@ void GameObjectManager::ExecuteUpdate(ShadowMap* shadowMap)
 
 	for (auto& goList : m_gameObjectListArray) {
 		for (auto& go : goList) {
-			go->StartWrapper(shadowMap);
+			go->StartWrapper(*shadowMap);
 		}
 	}
 

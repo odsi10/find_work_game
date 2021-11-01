@@ -10,7 +10,7 @@ Enemy::~Enemy()
 	DeleteGO(m_enemyModel);
 }
 
-bool Enemy::Start()
+bool Enemy::Start(ShadowMap& shadowMap)
 {
 	m_enemyModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);

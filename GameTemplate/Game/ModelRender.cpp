@@ -9,7 +9,7 @@ ModelRender::~ModelRender()
 {
 }
 
-bool ModelRender::Start(ShadowMap* shadowMap)
+bool ModelRender::Start(ShadowMap& shadowMap)
 {
 	InitShadowModel();
 	return true;

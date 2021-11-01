@@ -10,7 +10,6 @@
 
 class ShadowMap;
 
-
 /// <summary>
 /// GameObjectManagerクラス
 /// <summary>

@@ -14,7 +14,7 @@ class BackGround : public IGameObject
 public:	//コンストラクタ諸々
 	BackGround();
 	~BackGround();
-	bool Start(ShadowMap* shadowMap) override final;
+	bool Start(ShadowMap& shadowMap) override final;
 	void Update();
 
 private:	//データメンバ

@@ -13,7 +13,7 @@ class Enemy : public IGameObject
 public:	//コンストラクタ諸々
 	Enemy();
 	~Enemy();
-	bool Start() ;
+	bool Start(ShadowMap& shadowMap) override final;
 	void Update();
 
 private:	//アニメーション
