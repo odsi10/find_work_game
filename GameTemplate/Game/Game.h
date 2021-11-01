@@ -9,13 +9,14 @@ class BackGround;
 class Player;
 class GameCamera;
 class Enemy;
+class ShadowMap;
 
 class Game : public IGameObject
 {
 public:	// コンストラクタ諸々
 	Game();
 	~Game();
-	bool Start() ;
+	bool Start(ShadowMap* shadowMap);
 	void Update();
 
 private:	// データメンバ

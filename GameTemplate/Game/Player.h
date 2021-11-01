@@ -13,7 +13,7 @@ class Player : public IGameObject
 public:	//コンストラクタ諸々
 	Player();
 	~Player();
-	bool Start(ShadowMap& shadowMap) override final;
+	bool Start(ShadowMap* shadowMap) override final;
 	void Update() override final;
 
 public:	//Get関数

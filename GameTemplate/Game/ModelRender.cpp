@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "ModelRender.h"
 
-//他のクラスをインクルードする
-#include "ShadowMap.h"
-
 ModelRender::ModelRender()
 {
 }
@@ -12,7 +9,7 @@ ModelRender::~ModelRender()
 {
 }
 
-bool ModelRender::Start(ShadowMap& shadowMap)
+bool ModelRender::Start(ShadowMap* shadowMap)
 {
 	InitShadowModel();
 	return true;

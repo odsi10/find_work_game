@@ -3,7 +3,6 @@
 
 ShadowMap::ShadowMap()
 {
-    ShadowRenderTarget();
 }
 
 ShadowMap::~ShadowMap()
@@ -12,6 +11,7 @@ ShadowMap::~ShadowMap()
 
 bool ShadowMap::Start()
 {
+    ShadowRenderTarget();
     return true;
 }
 

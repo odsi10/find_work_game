@@ -28,6 +28,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	RootSignature rs;
 	InitRootSignature(rs);
 
+    ShadowMap shadowMap;
+
 	//ゲームのインスタンスを作成。
 	Game* m_game = NewGO<Game>(0);
 
@@ -116,8 +118,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
     //Model bgModel;
     //bgModel.Init(bgModelInitData);
-
-    ShadowMap shadowMap;
     
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！

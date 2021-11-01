@@ -2,7 +2,9 @@
 // 他クラスをインクルードする
 #include <Model.h>
 
+//他のクラスをインクルードする
 #include "Name.h"
+#include "ShadowMap.h"
 
 // 他クラスを使うために宣言する
 class ShadowMap;
@@ -56,7 +58,7 @@ class ModelRender : public IGameObject
 public:
 	ModelRender();
 	~ModelRender();
-	bool Start(ShadowMap& shadowMap) override final;
+	bool Start(ShadowMap* shadowMap) override final;
 	void Update() override final;
 	void Render(RenderContext& renderContext) override final;
 

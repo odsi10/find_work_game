@@ -10,7 +10,7 @@ Player::~Player()
 	DeleteGO(m_playerModel);
 }
 
-bool Player::Start(ShadowMap& shadowMap)
+bool Player::Start(ShadowMap* shadowMap)
 {
 	m_playerModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);

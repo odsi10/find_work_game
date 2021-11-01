@@ -32,7 +32,7 @@ public:
 	* ゲームオブジェクトの初期化に複数フレームかかる場合などはfalseを返して、初期化ステップなどを使って</br>
 	* 適切に初期化を行ってください。
 	*/
-	virtual bool Start(ShadowMap& shadowMap) { return true; }
+	virtual bool Start(ShadowMap* shadowMap) { return true; }
 	/*!
 		*@brief	更新
 		*/
@@ -128,7 +128,7 @@ public:
 		}
 	}
 	
-	void StartWrapper(ShadowMap& shadowMap)
+	void StartWrapper(ShadowMap* shadowMap)
 	{
 		if (m_isActive && !m_isStart && !m_isDead ) {
 			if (Start(shadowMap)) {
