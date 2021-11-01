@@ -13,7 +13,7 @@ class Player : public IGameObject
 public:	//コンストラクタ諸々
 	Player();
 	~Player();
-	bool Start();
+	bool Start(ShadowMap& shadowMap) override final;
 	void Update() override final;
 
 public:	//Get関数
@@ -45,5 +45,7 @@ private:	//データメンバ
 	Quaternion m_rotation = { 0.0f,0.0f,0.0f,1.0f };
 	float angle;
 	Quaternion qRot;
+
+	ShadowMap* m_shadowMap = nullptr;
 };
 
