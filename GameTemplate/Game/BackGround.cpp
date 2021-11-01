@@ -11,7 +11,7 @@ BackGround::~BackGround()
 	DeleteGO(m_backGroundModel);
 }
 
-bool BackGround::Start()
+bool BackGround::Start(ShadowMap& shadowMap)
 {
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/

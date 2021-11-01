@@ -56,8 +56,8 @@ class ModelRender : public IGameObject
 public:
 	ModelRender();
 	~ModelRender();
-	bool Start() ;
-	void Update() ;
+	bool Start(ShadowMap& shadowMap) override final;
+	void Update() override final;
 	void Render(RenderContext& renderContext) override final;
 
 

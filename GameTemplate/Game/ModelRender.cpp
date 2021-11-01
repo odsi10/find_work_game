@@ -12,8 +12,9 @@ ModelRender::~ModelRender()
 {
 }
 
-bool ModelRender::Start()
+bool ModelRender::Start(ShadowMap& shadowMap)
 {
+	InitShadowModel();
 	return true;
 }
 

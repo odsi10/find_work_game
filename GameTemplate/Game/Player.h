@@ -45,7 +45,5 @@ private:	//データメンバ
 	Quaternion m_rotation = { 0.0f,0.0f,0.0f,1.0f };
 	float angle;
 	Quaternion qRot;
-
-	ShadowMap* m_shadowMap = nullptr;
 };
 

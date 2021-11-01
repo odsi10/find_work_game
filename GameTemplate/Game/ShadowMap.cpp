@@ -3,6 +3,7 @@
 
 ShadowMap::ShadowMap()
 {
+    ShadowRenderTarget();
 }
 
 ShadowMap::~ShadowMap()
@@ -20,7 +21,7 @@ void ShadowMap::Update()
 
 void ShadowMap::Init()
 {
-    ShadowRenderTarget();
+    
 }
 
 void ShadowMap::ShadowRenderTarget()
