@@ -8,6 +8,8 @@
 #include <functional>
 #include <vector>
 
+class ShadowMap;
+
 
 /// <summary>
 /// GameObjectManagerクラス
@@ -54,7 +56,7 @@ public:
 	/// <summary>
 	/// 更新処理を実行
 	/// </summary>
-	void ExecuteUpdate();
+	void ExecuteUpdate(ShadowMap* shadowMap);
 	/// <summary>
 	/// 描画処理を実行。
 	/// </summary>

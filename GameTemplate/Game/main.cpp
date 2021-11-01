@@ -118,6 +118,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     //bgModel.Init(bgModelInitData);
 
     ShadowMap shadowMap;
+    
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
 	//////////////////////////////////////
@@ -136,7 +137,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         qAddRot.SetRotationDegX(g_pad[0]->GetLStickYF());
         g_camera3D->RotateOriginTarget(qAddRot);*/
 
-		GameObjectManager::GetInstance()->ExecuteUpdate();
+        GameObjectManager::GetInstance()->ExecuteUpdate(&shadowMap);
 
 		//レンダリングターゲットとして利用できるまで待つ。
         //m_bloom->DrowWait(renderContext);

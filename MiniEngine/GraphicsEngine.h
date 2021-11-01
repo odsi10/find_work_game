@@ -322,7 +322,7 @@ private:
 	std::unique_ptr<DirectX::GraphicsMemory> m_directXTKGfxMemroy;	//DirectXTKのグラフィックメモリシステム。
 	
 private:
-	RenderTarget m_mainRenderTarget;	//メインレンダリングターゲット	
+	RenderTarget m_mainRenderTarget;	//メインレンダリングターゲット
 
 public:		//メンバ関数
 	/// <summary>

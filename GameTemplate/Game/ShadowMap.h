@@ -18,9 +18,11 @@ public:
 	void Update();
 
 public:
+	/// <summary>
+	/// ‰eƒ‚ƒfƒ‹‚ğ‰Šú‰»
+	/// </summary>
 	void Init();
-
-	void Drow(RenderContext& renderContext);
+	
 	/// <summary>
 	/// ‰eƒ‚ƒfƒ‹‚ğ“o˜^
 	/// </summary>
@@ -30,7 +32,11 @@ public:
 		m_modelArray.push_back(shdowModel);
 	}
 
-	void AddModel(Model& ShadowModel);
+	/// <summary>
+	/// ‰eƒ‚ƒfƒ‹‚ğ•`‰æ
+	/// </summary>
+	/// <param name="renderContext"></param>
+	void Drow(RenderContext& renderContext);
 
 private:
 	void ShadowRenderTarget();

@@ -7,6 +7,7 @@
 #include <list>
 #include <string>
 class RenderContext;
+class ShadowMap;
 
 /*!
 	*@brief	ゲームオブジェクト。
@@ -31,7 +32,7 @@ public:
 	* ゲームオブジェクトの初期化に複数フレームかかる場合などはfalseを返して、初期化ステップなどを使って</br>
 	* 適切に初期化を行ってください。
 	*/
-	virtual bool Start() { return true; }
+	virtual bool Start(ShadowMap& shadowMap) { return true; }
 	/*!
 		*@brief	更新
 		*/
@@ -126,16 +127,16 @@ public:
 			Update();
 		}
 	}
-	void StartWrapper()
+	
+	void StartWrapper(ShadowMap& shadowMap)
 	{
 		if (m_isActive && !m_isStart && !m_isDead ) {
-			if (Start()) {
+			if (Start(shadowMap)) {
 				//初期化処理完了。
 				m_isStart = true;
 			}
 		}
 	}
-
 		
 	friend class CGameObjectManager;
 protected:
@@ -143,8 +144,8 @@ protected:
 	bool m_isStart = false;							//Startの開始フラグ。
 	bool m_isDead = false;							//死亡フラグ。
 	bool m_isRegistDeadList = false;				//死亡リストに積まれている。
-	bool m_isNewFromGameObjectManager;	//GameObjectManagerでnewされた。
-	bool m_isRegist = false;							//GameObjectManagerに登録されている？
+	bool m_isNewFromGameObjectManager;				//GameObjectManagerでnewされた。
+	bool m_isRegist = false;						//GameObjectManagerに登録されている？
 	bool m_isActive = true;							//Activeフラグ。
 	
 };

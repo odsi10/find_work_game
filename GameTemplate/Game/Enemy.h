@@ -13,8 +13,8 @@ class Enemy : public IGameObject
 public:	//コンストラクタ諸々
 	Enemy();
 	~Enemy();
-	bool Start() override final;
-	void Update()override final;
+	bool Start() ;
+	void Update();
 
 private:	//アニメーション
 	enum AnimationEnum	//アニメーションのenum

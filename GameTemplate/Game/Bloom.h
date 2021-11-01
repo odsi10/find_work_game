@@ -8,8 +8,8 @@ class Bloom : public IGameObject
 public:	//コンストラクタ諸々
 	Bloom();
 	~Bloom();
-	bool Start() override final;
-	void Update() override final;
+	bool Start() ;
+	void Update();
 
 public:	//メンバ関数
 	//初期化処理

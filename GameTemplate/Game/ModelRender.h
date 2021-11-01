@@ -4,6 +4,9 @@
 
 #include "Name.h"
 
+// 他クラスを使うために宣言する
+class ShadowMap;
+
 const int NUM_DIRECTIONAL_LIGHT = 4; // ディレクションライトの数
 
 //ライト用の構造体を定義する
@@ -53,8 +56,8 @@ class ModelRender : public IGameObject
 public:
 	ModelRender();
 	~ModelRender();
-	bool Start() override final;
-	void Update() override final;
+	bool Start() ;
+	void Update() ;
 	void Render(RenderContext& renderContext) override final;
 
 
@@ -207,4 +210,5 @@ private: //data menber
 	ModelInitData m_shadowModelInitData; //シャドウマップに描画するモデルを初期化する
 	Model m_ShadowModel;	//シャドウ用のモデルを初期化する
 
+	ShadowMap* m_shadowMap = nullptr;
 };

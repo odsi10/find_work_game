@@ -5,6 +5,7 @@
 #include "ExEngine.h"
 #include "GameObjectManager.h"
 
+
 GameObjectManager* GameObjectManager::m_instance = nullptr;
 
 GameObjectManager::GameObjectManager()
@@ -19,7 +20,8 @@ GameObjectManager::~GameObjectManager()
 {
 	m_instance = nullptr;
 }
-void GameObjectManager::ExecuteUpdate()
+
+void GameObjectManager::ExecuteUpdate(ShadowMap* shadowMap)
 {	
 	//死亡フラグがついているゲームオブジェクトを破棄する。
 	for (auto& goList : m_gameObjectListArray) {
@@ -34,7 +36,7 @@ void GameObjectManager::ExecuteUpdate()
 
 	for (auto& goList : m_gameObjectListArray) {
 		for (auto& go : goList) {
-			go->StartWrapper();
+			go->StartWrapper(*shadowMap);
 		}
 	}
 

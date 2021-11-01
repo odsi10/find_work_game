@@ -231,7 +231,7 @@ void ModelRender::InitShadowModel()
 	);
 
 	// コピーではなく参照を渡す
-	m_shadowMap->AddModel(m_ShadowModel);
+	m_shadowMap->RegistModel( &m_ShadowModel );
 }
 
 ////////////////////////////////////////////////////////////

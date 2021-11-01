@@ -4,13 +4,16 @@
 #include "ModelRender.h"
 #include "Name.h"
 #include "physics/CharacterController.h"
+#include "ShadowMap.h"
+
+class ShadowMap;
 
 class Player : public IGameObject
 {
 public:	//コンストラクタ諸々
 	Player();
 	~Player();
-	bool Start() override final;
+	bool Start();
 	void Update() override final;
 
 public:	//Get関数

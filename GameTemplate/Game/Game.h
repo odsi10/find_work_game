@@ -15,8 +15,8 @@ class Game : public IGameObject
 public:	// コンストラクタ諸々
 	Game();
 	~Game();
-	bool Start() override final;
-	void Update() override final;
+	bool Start() ;
+	void Update();
 
 private:	// データメンバ
 	BackGround* m_backGround = nullptr;

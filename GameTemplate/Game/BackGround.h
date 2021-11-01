@@ -7,14 +7,15 @@
 
 // 他クラスを使うために宣言する
 class ModelRender;
+class ShadowMap;
 
 class BackGround : public IGameObject
 {
 public:	//コンストラクタ諸々
 	BackGround();
 	~BackGround();
-	bool Start() override final;
-	void Update() override final;
+	bool Start();
+	void Update();
 
 private:	//データメンバ
 	ModelRender* m_backGroundModel = nullptr;

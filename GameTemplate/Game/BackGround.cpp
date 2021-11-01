@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BackGround.h"
+#include "ShadowMap.h"
 
 BackGround::BackGround()
 {
