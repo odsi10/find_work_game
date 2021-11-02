@@ -8,7 +8,7 @@ class GameCamera : public IGameObject
 public:	//コンストラクタ諸々
 	GameCamera();
 	~GameCamera();
-	bool Start(ShadowMap& shadowMap) override final;
+	bool Start();
 	void Update();
 
 public:

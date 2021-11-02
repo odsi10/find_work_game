@@ -11,12 +11,12 @@ BackGround::~BackGround()
 	DeleteGO(m_backGroundModel);
 }
 
-bool BackGround::Start(ShadowMap& shadowMap)
+bool BackGround::Start(ShadowMap* shadowMap)
 {
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
 	m_backGroundModel = NewGO<ModelRender>(0);
-	m_backGroundModel->Init(filePath::tkm::BackGround);
+	m_backGroundModel->Init(filePath::tkm::BackGround,*shadowMap);
 
 	//m_backGroundPSO.CreateFromModel();
 	

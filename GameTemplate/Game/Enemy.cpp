@@ -10,12 +10,12 @@ Enemy::~Enemy()
 	DeleteGO(m_enemyModel);
 }
 
-bool Enemy::Start(ShadowMap& shadowMap)
+bool Enemy::Start(ShadowMap* shadowMap)
 {
 	m_enemyModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
-	m_enemyModel->Init(filePath::tkm::UnityChan);
+	m_enemyModel->Init(filePath::tkm::UnityChan,*shadowMap);
 	m_enemyCC.Init(
 		35.0f,
 		75.0f,

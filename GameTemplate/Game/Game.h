@@ -16,7 +16,7 @@ class Game : public IGameObject
 public:	// コンストラクタ諸々
 	Game();
 	~Game();
-	bool Start(ShadowMap& shadowMap) override final;
+	bool Start();
 	void Update();
 
 private:	// データメンバ

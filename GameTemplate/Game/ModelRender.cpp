@@ -9,13 +9,13 @@ ModelRender::~ModelRender()
 {
 }
 
-bool ModelRender::Start(ShadowMap& shadowMap)
+bool ModelRender::Start()
 {
-	InitShadowModel();
 	return true;
 }
 
 void ModelRender::Init(const char* filePath,
+	ShadowMap& shadowMap,
 	enModelUpAxis::EnModelUpAxis modelUpAxis/*,
 	AnimationClip* animationClip,
 	int maxAnimationClipNum*/

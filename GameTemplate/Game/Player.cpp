@@ -10,12 +10,12 @@ Player::~Player()
 	DeleteGO(m_playerModel);
 }
 
-bool Player::Start(ShadowMap& shadowMap)
+bool Player::Start(ShadowMap* shadowMap)
 {
 	m_playerModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
-	m_playerModel->Init(filePath::tkm::UnityChan);
+	m_playerModel->Init(filePath::tkm::UnityChan,*shadowMap);
 	m_playerCC.Init(
 		35.0f,
 		75.0f,

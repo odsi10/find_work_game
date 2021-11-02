@@ -58,8 +58,8 @@ class ModelRender : public IGameObject
 public:
 	ModelRender();
 	~ModelRender();
-	bool Start(ShadowMap& shadowMap) override final;
-	void Update() override final;
+	bool Start();
+	void Update();
 	void Render(RenderContext& renderContext) override final;
 
 
@@ -73,8 +73,9 @@ public:
 
 
 	void Init(const char* filePath,
-		enModelUpAxis::EnModelUpAxis modelUpAxis = enModelUpAxis::enModelUpAxisZ/*,
-		AnimationClip* animationClip = nullptr,
+		ShadowMap& shadowMap,
+		enModelUpAxis::EnModelUpAxis modelUpAxis = enModelUpAxis::enModelUpAxisZ
+		/*AnimationClip * animationClip = nullptr,
 		int maxAnimationClipNum = 0*/
 	);
 
