@@ -9,8 +9,9 @@ ModelRender::~ModelRender()
 {
 }
 
-bool ModelRender::Start()
+bool ModelRender::Start(ShadowMap* shadowMap)
 {
+	InitShadowModel(shadowMap);
 	return true;
 }
 
@@ -31,8 +32,6 @@ void ModelRender::Init(const char* filePath,
 
 	////アニメーションを初期化
 	//InitAnimation(animationClip, maxAnimationClipNum);
-
-	InitShadowModel();
 
 	//初期化完了
 	m_finishInit = true;
@@ -210,7 +209,7 @@ void ModelRender::InitHemiLight()
 	m_light.groundNormal.z = 0.0f;
 }
 
-void ModelRender::InitShadowModel()
+void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 {
 	//シャドウマップ描画用のシェーダーを指定する。
 	m_shadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
@@ -229,6 +228,7 @@ void ModelRender::InitShadowModel()
 	);
 
 	// コピーではなく参照を渡す
+	m_shadowMap = shadowMap;
 	m_shadowMap->RegistModel( &m_ShadowModel );
 }
 
@@ -280,10 +280,10 @@ void ModelRender::Update()
 		m_light.ptPosition.z -= g_pad[0]->GetLStickYF();
 	}*/
 
-	// ライトの強さを変更する
-	m_light.dirColor.x += g_pad[0]->GetLStickXF() * 0.01f;
-	m_light.dirColor.y += g_pad[0]->GetLStickXF() * 0.01f;
-	m_light.dirColor.z += g_pad[0]->GetLStickXF() * 0.01f;
+	//// ライトの強さを変更する
+	//m_light.dirColor.x += g_pad[0]->GetLStickXF() * 0.01f;
+	//m_light.dirColor.y += g_pad[0]->GetLStickXF() * 0.01f;
+	//m_light.dirColor.z += g_pad[0]->GetLStickXF() * 0.01f;
 
 	//モデルの座標更新
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);

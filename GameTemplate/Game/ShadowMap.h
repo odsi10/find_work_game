@@ -38,11 +38,19 @@ public:
 	/// <param name="renderContext"></param>
 	void Drow(RenderContext& renderContext);
 
-private:
 	void ShadowRenderTarget();
+
+public:
+	const Camera camera()
+	{
+		return m_lightCamera;
+	}
 
 private: //データメンバ
 	ModelRender* m_modelRender = nullptr;
+
+	// 影描画用のライトカメラを作成する
+	Camera m_lightCamera;
 
 	std::vector<Model*> m_modelArray;
 

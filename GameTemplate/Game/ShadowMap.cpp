@@ -3,6 +3,7 @@
 
 ShadowMap::ShadowMap()
 {
+    ShadowRenderTarget();
 }
 
 ShadowMap::~ShadowMap()
@@ -11,7 +12,6 @@ ShadowMap::~ShadowMap()
 
 bool ShadowMap::Start()
 {
-    ShadowRenderTarget();
     return true;
 }
 
@@ -21,7 +21,6 @@ void ShadowMap::Update()
 
 void ShadowMap::Init()
 {
-    
 }
 
 void ShadowMap::ShadowRenderTarget()
@@ -42,9 +41,6 @@ void ShadowMap::ShadowRenderTarget()
 
 void ShadowMap::Drow(RenderContext& renderContext)
 {
-    // 影描画用のライトカメラを作成する
-    Camera m_lightCamera;
-
     // カメラの位置を設定。これはライトの位置
     m_lightCamera.SetPosition(0, 500, 0);
 
@@ -56,6 +52,7 @@ void ShadowMap::Drow(RenderContext& renderContext)
 
     // ライトビュープロジェクション行列を計算している
     m_lightCamera.Update();
+
     // シャドウマップにレンダリング
     // レンダリングターゲットをシャドウマップに変更する
     renderContext.WaitUntilToPossibleSetRenderTarget(m_shadowMap);
@@ -69,4 +66,12 @@ void ShadowMap::Drow(RenderContext& renderContext)
     
     // 書き込み完了待ち
     renderContext.WaitUntilFinishDrawingToRenderTarget(m_shadowMap);
+
+    // 通常レンダリング
+    // レンダリングターゲットをフレームバッファに戻す
+    renderContext.SetRenderTarget(
+        g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+        g_graphicsEngine->GetCurrentFrameBuffuerDSV()
+    );
+    renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
 }

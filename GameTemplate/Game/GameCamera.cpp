@@ -12,7 +12,7 @@ GameCamera::~GameCamera()
 {
 }
 
-bool GameCamera::Start()
+bool GameCamera::Start(ShadowMap* shadowMap)
 {
 	m_player = FindGO<Player>(findName::Player);
 

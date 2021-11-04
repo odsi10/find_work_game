@@ -144,14 +144,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         
         shadowMap.Drow(renderContext);
 
-        // 通常レンダリング
-        // レンダリングターゲットをフレームバッファに戻す
-        renderContext.SetRenderTarget(
-            g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
-            g_graphicsEngine->GetCurrentFrameBuffuerDSV()
-        );
-        renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
-
         GameObjectManager::GetInstance()->ExecuteRender(renderContext);
 
 		//ブルームを描画
@@ -168,6 +160,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
         //// 書き込み完了待ち
         //renderContext.WaitUntilFinishDrawingToRenderTarget(shadowMap);
+
+        //// 通常レンダリング
+        //// レンダリングターゲットをフレームバッファに戻す
+        //renderContext.SetRenderTarget(
+        //    g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+        //    g_graphicsEngine->GetCurrentFrameBuffuerDSV()
+        //);
+        //renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
 
         //// ティーポットモデルを描画
         //teapotModel.Draw(renderContext);
