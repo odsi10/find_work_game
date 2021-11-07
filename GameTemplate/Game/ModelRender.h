@@ -198,6 +198,8 @@ public: //Set関数
 
 private: //data menber
 	Model m_model;	//モデル
+	//モデルの初期化するための情報を設定
+	ModelInitData modelInitData;
 	std::unique_ptr<Skeleton> m_skeletonPointer; //スケルトンのポインター
 	std::unique_ptr<Animation> m_animationPointer; //アニメーションのポインター
 

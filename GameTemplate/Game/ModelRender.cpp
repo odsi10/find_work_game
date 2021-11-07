@@ -101,8 +101,7 @@ void ModelRender::InitModel(const char* filePath,
 	//InitHemiLight();
 
 	//3Dモデルをロードするための情報を設定する
-	//モデルの初期化するための情報を設定
-	ModelInitData modelInitData;
+	
 	//tkmファイルのファイルパスを設定
 	modelInitData.m_tkmFilePath = filePath;
 	//使用するシェーダーファイルパスを設定
@@ -113,6 +112,7 @@ void ModelRender::InitModel(const char* filePath,
 	}
 	//モデルの上方向を指定
 	modelInitData.m_modelUpAxis = modelUpAxis;
+
 	//ライトの情報を定数バッファとしてディスクリプタヒープに
 	//登録するためにモデルの初期化情報として渡す。
 	modelInitData.m_expandConstantBuffer = &m_light;
@@ -230,6 +230,7 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 	// コピーではなく参照を渡す
 	m_shadowMap = shadowMap;
 	m_shadowMap->RegistModel( &m_ShadowModel );
+
 }
 
 ////////////////////////////////////////////////////////////

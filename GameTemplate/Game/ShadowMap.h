@@ -41,9 +41,14 @@ public:
 	void ShadowRenderTarget();
 
 public:
-	const Camera camera()
+	Camera GetLightCamera()
 	{
 		return m_lightCamera;
+	}
+
+	RenderTarget GetRenderTarget()
+	{
+		return m_shadowMap;
 	}
 
 private: //データメンバ

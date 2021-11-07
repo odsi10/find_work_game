@@ -64,8 +64,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
     //// step-1 シャドウマップ描画用のレンダリングターゲットを作成する
     //float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    //RenderTarget shadowMap;
-    //shadowMap.Create(
+    //RenderTarget shadowMap1;
+    //shadowMap1.Create(
     //    1024,
     //    1024,
     //    1,
@@ -99,25 +99,25 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     //teapotModel.Update(
     //    { 0, 50, 0 },
     //    g_quatIdentity,
-    //    g_vec3One
+    //    g_vec3Oneu
     //);
 
-    //// 影を受ける背景モデルを初期化
-    //ModelInitData bgModelInitData;
+    // 影を受ける背景モデルを初期化
+    ModelInitData bgModelInitData;
 
-    //// シャドウレシーバー（影が落とされるモデル）用のシェーダーを指定する
-    //bgModelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+    // シャドウレシーバー（影が落とされるモデル）用のシェーダーを指定する
+    bgModelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
 
-    // シャドウマップを拡張SRVに設定する
-    //bgModelInitData.m_expandShaderResoruceView = &shadowMap.GetRenderTargetTexture();
-
-    //// ライトビュープロジェクション行列を拡張定数バッファーに設定する
-    //bgModelInitData.m_expandConstantBuffer = (void*)&lightCamera.GetViewProjectionMatrix();
-    //bgModelInitData.m_expandConstantBufferSize = sizeof(lightCamera.GetViewProjectionMatrix());
-    //bgModelInitData.m_tkmFilePath = "Assets/modelData/bg/bg.tkm";
-
-    //Model bgModel;
-    //bgModel.Init(bgModelInitData);
+    //シャドウマップを拡張SRVに設定する
+    bgModelInitData.m_expandShaderResoruceView = &shadowMap.GetRenderTarget().GetRenderTargetTexture();
+    
+    // ライトビュープロジェクション行列を拡張定数バッファーに設定する
+    bgModelInitData.m_expandConstantBuffer = (void*)&shadowMap.GetLightCamera().GetViewProjectionMatrix();
+    bgModelInitData.m_expandConstantBufferSize = sizeof(shadowMap.GetLightCamera().GetViewProjectionMatrix());
+    bgModelInitData.m_tkmFilePath = "Assets/modelData/bg/bg.tkm";
+    
+    Model bgModel;
+    bgModel.Init(bgModelInitData);
     
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
