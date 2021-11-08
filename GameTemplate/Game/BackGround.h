@@ -4,10 +4,12 @@
 #include "ModelRender.h"
 #include "Name.h"
 #include "physics/Physics.h"
+#include <Model.h>
 
 // ‘¼ƒNƒ‰ƒX‚ğg‚¤‚½‚ß‚ÉéŒ¾‚·‚é
 class ModelRender;
 class ShadowMap;
+class Model;
 
 class BackGround : public IGameObject
 {

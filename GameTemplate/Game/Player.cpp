@@ -29,6 +29,8 @@ void Player::Update()
 {
 	Move();
 	Rotation();
+
+	
 }
 
 void Player::Move()
@@ -37,6 +39,7 @@ void Player::Move()
 	m_moveSpeed.z = g_pad[0]->GetLStickYF() * fSpeed;
 
 	m_position = m_playerCC.Execute(m_moveSpeed, 1.0f);
+	m_moveSpeed.y -= 1.0f;
 	m_playerModel->SetPosition(m_position);
 }
 

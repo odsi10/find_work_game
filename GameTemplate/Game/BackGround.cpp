@@ -18,8 +18,8 @@ bool BackGround::Start(ShadowMap* shadowMap)
 	m_backGroundModel = NewGO<ModelRender>(0);
 	m_backGroundModel->Init(filePath::tkm::BackGround,*shadowMap);
 
-	//m_backGroundPSO.CreateFromModel();
-	
+	m_backGroundPSO.CreateFromModel(m_backGroundModel->GetModel(), m_backGroundModel->GetModel().GetWorldMatrix());
+
 	return true;
 }
 

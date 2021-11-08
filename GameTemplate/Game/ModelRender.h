@@ -151,7 +151,12 @@ public: //Getä÷êî
 		return m_scale;
 	}
 
-	Model Getmodel()
+	Model& GetModel()
+	{
+		return m_model;
+	}
+
+	Model GetShadowModel()
 	{
 		m_ShadowModel;
 	}
