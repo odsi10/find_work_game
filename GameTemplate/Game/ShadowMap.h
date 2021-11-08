@@ -41,12 +41,12 @@ public:
 	void ShadowRenderTarget();
 
 public:
-	Camera GetLightCamera()
+	Camera& GetLightCamera()
 	{
 		return m_lightCamera;
 	}
 
-	RenderTarget GetRenderTarget()
+	RenderTarget& GetRenderTarget()	//コピーに注意！！！
 	{
 		return m_shadowMap;
 	}

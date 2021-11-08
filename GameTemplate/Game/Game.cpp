@@ -21,7 +21,7 @@ Game::~Game()
 
 bool Game::Start(ShadowMap* shadowMap)
 {
-	m_backGround = NewGO<BackGround>(priority::PriorityZero, findName::BackGround);
+	//m_backGround = NewGO<BackGround>(priority::PriorityZero, findName::BackGround);
 
 	m_player = NewGO<Player>(priority::PriorityZero,findName::Player);
 
