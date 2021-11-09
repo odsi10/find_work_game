@@ -48,7 +48,7 @@ public:
 	/// データをVRAMにコピーする。
 	/// </summary>
 	/// <param name="data"></param>
-	void CopyToVRAM(void* data);
+	void CopyToVRAM(const void* const data);
 	template< class T>
 	void CopyToVRAM(T& data)
 	{

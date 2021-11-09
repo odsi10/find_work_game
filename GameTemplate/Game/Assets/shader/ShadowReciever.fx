@@ -11,7 +11,7 @@ cbuffer ModelCb : register(b0)
 };
 
 // ライトビュープロジェクション行列にアクセスする定数バッファーを定義
-cbuffer ShadowCb : register(b1)
+cbuffer ShadowCb : register(b2)
 {
     float4x4 mLVP;
 };
@@ -83,7 +83,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
         // step-3 シャドウマップに描き込まれているZ値と比較する
         // 計算したUV座標を使って、シャドウマップから深度値をサンプリング
         float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV).r;
-        if(zInLVP > zInShadowMap)
+        if(zInLVP > zInShadowMap + 0.01f)
         {
             // 遮蔽されている
             color.xyz *= 0.5f;

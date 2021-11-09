@@ -15,6 +15,7 @@ bool BackGround::Start(ShadowMap* shadowMap)
 {
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
+	//m_backGroundModel->SetShadowCasterMake(false);
 	m_backGroundModel = NewGO<ModelRender>(0);
 	m_backGroundModel->Init(filePath::tkm::BackGround,*shadowMap);
 

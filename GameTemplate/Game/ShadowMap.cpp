@@ -42,7 +42,7 @@ void ShadowMap::ShadowRenderTarget()
 void ShadowMap::Drow(RenderContext& renderContext)
 {
     // カメラの位置を設定。これはライトの位置
-    m_lightCamera.SetPosition(0, 1000, 0);
+    m_lightCamera.SetPosition(1000, 1000, 1000);
 
     // カメラの注視点を設定。これがライトが照らしている場所
     m_lightCamera.SetTarget(0, 0, 0);
@@ -50,6 +50,9 @@ void ShadowMap::Drow(RenderContext& renderContext)
     // 上方向を設定。今回はライトが真下を向いているので、X方向を上にしている
     m_lightCamera.SetUp(1, 0, 0);
 
+    m_lightCamera.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
+    m_lightCamera.SetWidth(500.0f);
+    m_lightCamera.SetHeight(500.0f);
     // ライトビュープロジェクション行列を計算している
     m_lightCamera.Update();
 

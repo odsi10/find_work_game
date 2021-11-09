@@ -63,7 +63,7 @@ void ConstantBuffer::RegistConstantBufferView(D3D12_CPU_DESCRIPTOR_HANDLE descri
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
 	RegistConstantBufferView(descriptorHandle, backBufferIndex);
 }
-void ConstantBuffer::CopyToVRAM(void* data)
+void ConstantBuffer::CopyToVRAM(const void* const data)
 {
 	auto backBufferIndex = g_graphicsEngine->GetBackBufferIndex();
 	memcpy(m_constBufferCPU[backBufferIndex], data, m_size);

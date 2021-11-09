@@ -11,11 +11,16 @@ ModelRender::~ModelRender()
 
 bool ModelRender::Start(ShadowMap* shadowMap)
 {
-	InitShadowModel(shadowMap);
+	/*if (m_shadowCasterMake == false) {
+		return true;
+	}*/
+
+	
 	return true;
 }
 
-void ModelRender::Init(const char* filePath,
+void ModelRender::Init(
+	const char* filePath,
 	ShadowMap& shadowMap,
 	enModelUpAxis::EnModelUpAxis modelUpAxis/*,
 	AnimationClip* animationClip,
@@ -29,6 +34,9 @@ void ModelRender::Init(const char* filePath,
 
 	//モデルの初期化
 	InitModel(filePath, modelUpAxis);
+
+	InitShadowModel(&shadowMap);
+	InitShadowReceiver(&shadowMap, filePath, modelUpAxis);
 
 	////アニメーションを初期化
 	//InitAnimation(animationClip, maxAnimationClipNum);
@@ -84,42 +92,7 @@ void ModelRender::InitModel(const char* filePath,
 	enModelUpAxis::EnModelUpAxis modelUpAxis
 )
 {
-	//ライトの設定をする。
-	//ディレクションライトを初期化する
-	InitDirectionLight();
-
-	//ポイントライトを初期化する
-	//InitPointLight();
-
-	//スポットライトを初期化する
-	//InitSpotLight();
-
-	//環境光を初期化する
-	InitAmbientLight();
-
-	//半球ライトを初期化する
-	//InitHemiLight();
-
-	//3Dモデルをロードするための情報を設定する
-	
-	//tkmファイルのファイルパスを設定
-	modelInitData.m_tkmFilePath = filePath;
-	//使用するシェーダーファイルパスを設定
-	modelInitData.m_fxFilePath = "Assets/shader/model.fx";
-	//スケルトンを指定する。
-	if (m_skeletonPointer) {	//スケルトンが初期化されていたら
-		modelInitData.m_skeleton = m_skeletonPointer.get();
-	}
-	//モデルの上方向を指定
-	modelInitData.m_modelUpAxis = modelUpAxis;
-
-	//ライトの情報を定数バッファとしてディスクリプタヒープに
-	//登録するためにモデルの初期化情報として渡す。
-	modelInitData.m_expandConstantBuffer = &m_light;
-	modelInitData.m_expandConstantBufferSize = sizeof(m_light);
-
-	//初期化情報を使ってモデル表示処理を初期化する
-	m_model.Init(modelInitData);
+;
 }
 
 //////////////////////////////
@@ -230,6 +203,59 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 	// コピーではなく参照を渡す
 	m_shadowMap = shadowMap;
 	m_shadowMap->RegistModel( &m_ShadowModel );
+
+}
+
+void ModelRender::InitShadowReceiver(
+	ShadowMap* shadowMap,
+	const char* filePath,
+	enModelUpAxis::EnModelUpAxis modelUpAxis)
+{
+	//ライトの設定をする。
+//ディレクションライトを初期化する
+	InitDirectionLight();
+
+	//ポイントライトを初期化する
+	//InitPointLight();
+
+	//スポットライトを初期化する
+	//InitSpotLight();
+
+	//環境光を初期化する
+	InitAmbientLight();
+
+	//半球ライトを初期化する
+	//InitHemiLight();
+
+	//3Dモデルをロードするための情報を設定する
+
+	//tkmファイルのファイルパスを設定
+	m_modelInitData.m_tkmFilePath = filePath;
+
+	//スケルトンを指定する。
+	if (m_skeletonPointer) {	//スケルトンが初期化されていたら
+		m_modelInitData.m_skeleton = m_skeletonPointer.get();
+	}
+	//モデルの上方向を指定
+	m_modelInitData.m_modelUpAxis = modelUpAxis;
+
+	//ライトの情報を定数バッファとしてディスクリプタヒープに
+	//登録するためにモデルの初期化情報として渡す。
+	m_modelInitData.m_expandConstantBuffer[0] = &m_light;
+	m_modelInitData.m_expandConstantBufferSize[0] = sizeof(m_light);
+	// ライトビュープロジェクション行列を拡張定数バッファーに設定する
+
+	m_modelInitData.m_expandConstantBuffer[1] = (void*)&shadowMap->GetLightCamera().GetViewProjectionMatrix();
+	m_modelInitData.m_expandConstantBufferSize[1] = sizeof(shadowMap->GetLightCamera().GetViewProjectionMatrix());
+
+	// シャドウレシーバー（影が落とされるモデル）用のシェーダーを指定する
+	m_modelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+
+	//シャドウマップを拡張SRVに設定する
+	m_modelInitData.m_expandShaderResoruceView = &shadowMap->GetRenderTarget().GetRenderTargetTexture();
+
+	//初期化情報を使ってモデル表示処理を初期化する
+	m_model.Init(m_modelInitData);
 }
 
 ////////////////////////////////////////////////////////////

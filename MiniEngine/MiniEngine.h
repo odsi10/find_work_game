@@ -31,6 +31,7 @@
 #include "d3dx12.h"
 
 const int MAX_RENDERING_TARGET = D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT;	//レンダリングターゲットの最大数。
+const int MAX_EXPAND_CONSTANT_BUFFER = 4;	// 拡張定数バッファの最大数
 
 #include "dbg/MyAssert.h"
 

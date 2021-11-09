@@ -8,8 +8,8 @@ void ModelStandard::Init(const char* tkmFilePath)
 	//スタンダードシェーダーを指定する。
 	initData.m_fxFilePath = "Assets/shader/preset/modelStandard.fx";
 	initData.m_tkmFilePath = tkmFilePath;
-	initData.m_expandConstantBuffer = &m_light;
-	initData.m_expandConstantBufferSize = sizeof(m_light);
+	initData.m_expandConstantBuffer[0] = &m_light;
+	initData.m_expandConstantBufferSize[0] = sizeof(m_light);
 
 	//光を強めに設定する。
 	m_light.directionalLight[0].color.x = 2.0f;

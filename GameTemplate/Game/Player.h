@@ -5,8 +5,10 @@
 #include "Name.h"
 #include "physics/CharacterController.h"
 #include "ShadowMap.h"
+#include "ModelRender.h"
 
 class ShadowMap;
+class ModelRender;
 
 class Player : public IGameObject
 {

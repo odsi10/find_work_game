@@ -106,6 +106,11 @@ private:
 	void InitAnimation(AnimationClip* animationClip, int maxAnimationClipNum);
 
 	void InitShadowModel(ShadowMap* shadowMap);
+	void InitShadowReceiver(
+		ShadowMap* shadowMap,
+		const char* filePath,
+		enModelUpAxis::EnModelUpAxis modelUpAxis
+	);
 
 public:
 	/**
@@ -201,10 +206,15 @@ public: //Set関数
 		m_scale = scale;
 	}
 
+	/*void SetShadowCasterMake(const bool casterMake)
+	{
+		m_shadowCasterMake = casterMake;
+	}*/
+
 private: //data menber
 	Model m_model;	//モデル
 	//モデルの初期化するための情報を設定
-	ModelInitData modelInitData;
+	ModelInitData m_modelInitData;
 	std::unique_ptr<Skeleton> m_skeletonPointer; //スケルトンのポインター
 	std::unique_ptr<Animation> m_animationPointer; //アニメーションのポインター
 
@@ -221,4 +231,6 @@ private: //data menber
 	Model m_ShadowModel;	//シャドウ用のモデルを初期化する
 
 	ShadowMap* m_shadowMap = nullptr;
+
+	bool m_shadowCasterMake = false;
 };

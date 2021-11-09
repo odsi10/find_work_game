@@ -12,6 +12,7 @@ Player::~Player()
 
 bool Player::Start(ShadowMap* shadowMap)
 {
+	//m_playerModel->SetShadowCasterMake(true);
 	m_playerModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
