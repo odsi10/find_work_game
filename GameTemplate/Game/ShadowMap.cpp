@@ -16,7 +16,7 @@ bool ShadowMap::Start()
 }
 
 void ShadowMap::Update()
-{	
+{
 }
 
 void ShadowMap::Init()
@@ -42,7 +42,7 @@ void ShadowMap::ShadowRenderTarget()
 void ShadowMap::Drow(RenderContext& renderContext)
 {
     // カメラの位置を設定。これはライトの位置
-    m_lightCamera.SetPosition(0, 500, 0);
+    m_lightCamera.SetPosition(0, 1000, 0);
 
     // カメラの注視点を設定。これがライトが照らしている場所
     m_lightCamera.SetTarget(0, 0, 0);

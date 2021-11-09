@@ -117,7 +117,7 @@ void ModelRender::InitModel(const char* filePath,
 	//登録するためにモデルの初期化情報として渡す。
 	modelInitData.m_expandConstantBuffer = &m_light;
 	modelInitData.m_expandConstantBufferSize = sizeof(m_light);
-	
+
 	//初期化情報を使ってモデル表示処理を初期化する
 	m_model.Init(modelInitData);
 }
@@ -135,9 +135,9 @@ void ModelRender::InitDirectionLight()
 	//正規化する。
 	m_light.dirDirection.Normalize();
 	//ライトのカラーの設定（ライトの強さ）
-	m_light.dirColor.x = 0.5f;
-	m_light.dirColor.y = 0.5f;
-	m_light.dirColor.z = 0.5f;
+	m_light.dirColor.x = 0.7f;
+	m_light.dirColor.y = 0.7f;
+	m_light.dirColor.z = 0.7f;
 
 	//視点の位置を設定
 	m_light.eyePos = g_camera3D->GetPosition();
@@ -230,7 +230,6 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 	// コピーではなく参照を渡す
 	m_shadowMap = shadowMap;
 	m_shadowMap->RegistModel( &m_ShadowModel );
-
 }
 
 ////////////////////////////////////////////////////////////
@@ -289,4 +288,5 @@ void ModelRender::Update()
 	//モデルの座標更新
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
+	m_ShadowModel.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
