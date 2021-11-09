@@ -10,6 +10,12 @@ cbuffer ModelCb : register(b0)
     float4x4 mProj;
 };
 
+cbuffer LightCb : register(b1)
+{
+    float3 dirDirection;
+    float3 dirColor;
+}
+
 // ライトビュープロジェクション行列にアクセスする定数バッファーを定義
 cbuffer ShadowCb : register(b2)
 {
@@ -67,6 +73,16 @@ SPSIn VSMain(SVSIn vsIn)
 /// </summary>
 float4 PSMain(SPSIn psIn) : SV_Target0
 {
+    float t = dot(psIn.normal,dirDirection);
+
+    t *= -1.0f;
+
+    if (t < 0.0f) {
+        t = 0.000001f;
+    }
+
+    float3 diffuseLig = dirColor * t;
+
     float4 color = g_albedo.Sample(g_sampler, psIn.uv);
 
     // ライトビュースクリーン空間からUV空間に座標変換
@@ -77,17 +93,20 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // step-4 ライトビュースクリーン空間でのZ値を計算する
     float zInLVP = psIn.posInLVP.z / psIn.posInLVP.w;
 
-    if(shadowMapUV.x > 0.0f && shadowMapUV.x < 1.0f
+    if (shadowMapUV.x > 0.0f && shadowMapUV.x < 1.0f
         && shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f)
     {
         // step-3 シャドウマップに描き込まれているZ値と比較する
         // 計算したUV座標を使って、シャドウマップから深度値をサンプリング
         float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV).r;
-        if(zInLVP > zInShadowMap + 0.01f)
+        if (zInLVP > zInShadowMap + 0.01f)
         {
             // 遮蔽されている
             color.xyz *= 0.5f;
         }
     }
+
+    color.xyz *= diffuseLig;
+
     return color;
 }
