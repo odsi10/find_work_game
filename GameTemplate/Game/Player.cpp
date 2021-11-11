@@ -30,8 +30,6 @@ void Player::Update()
 {
 	/*Move();
 	Rotation();*/
-
-	
 }
 
 void Player::Move()
