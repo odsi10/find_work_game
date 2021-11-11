@@ -142,7 +142,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//レンダリングターゲットとして利用できるまで待つ。
         //m_bloom->DrowWait(renderContext);
         
-        shadowMap.Drow(renderContext);
+        shadowMap.Draw(renderContext);
 
         GameObjectManager::GetInstance()->ExecuteRender(renderContext);
 
