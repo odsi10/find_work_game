@@ -36,7 +36,7 @@ public:
 	/// ‰eƒ‚ƒfƒ‹‚ð•`‰æ
 	/// </summary>
 	/// <param name="renderContext"></param>
-	void Drow(RenderContext& renderContext);
+	void Draw(RenderContext& renderContext);
 
 	void ShadowRenderTarget();
 

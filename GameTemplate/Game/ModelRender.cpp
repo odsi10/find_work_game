@@ -212,7 +212,7 @@ void ModelRender::InitShadowReceiver(
 	enModelUpAxis::EnModelUpAxis modelUpAxis)
 {
 	//ライトの設定をする。
-//ディレクションライトを初期化する
+	//ディレクションライトを初期化する
 	InitDirectionLight();
 
 	//ポイントライトを初期化する

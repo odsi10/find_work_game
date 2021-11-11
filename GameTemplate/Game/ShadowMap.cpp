@@ -39,7 +39,7 @@ void ShadowMap::ShadowRenderTarget()
     );
 }
 
-void ShadowMap::Drow(RenderContext& renderContext)
+void ShadowMap::Draw(RenderContext& renderContext)
 {
     // カメラの位置を設定。これはライトの位置
     m_lightCamera.SetPosition(1000, 1000, 1000);

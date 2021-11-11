@@ -111,7 +111,7 @@ void Bloom::Init()
     
 }
 
-void Bloom::DrowWait(RenderContext& renderContext)
+void Bloom::DrawWait(RenderContext& renderContext)
 {
     // レンダリングターゲットをmainRenderTargetに変更する
     //レンダリングターゲットとして利用できるまで待つ。
@@ -125,7 +125,7 @@ void Bloom::DrowWait(RenderContext& renderContext)
 
 }
 
-void Bloom::DrowFinish(RenderContext& renderContext)
+void Bloom::DrawFinish(RenderContext& renderContext)
 {
     // 輝度抽出
     // 輝度抽出用のレンダリングターゲットに変更。

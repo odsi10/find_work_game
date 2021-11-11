@@ -15,9 +15,9 @@ public:	//メンバ関数
 	//初期化処理
 	void Init();
 
-	void DrowWait(RenderContext& renderContext);
+	void DrawWait(RenderContext& renderContext);
 
-	void DrowFinish(RenderContext& renderContext);
+	void DrawFinish(RenderContext& renderContext);
 
 private:	//データメンバ
 	RenderTarget mainRenderTarget;	// 32ビットの浮動小数点のカラーバッファーを保持したメインレンダリングターゲットを作成する
