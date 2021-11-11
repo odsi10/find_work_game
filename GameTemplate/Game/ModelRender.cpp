@@ -216,7 +216,7 @@ void ModelRender::InitShadowReceiver(
 	InitDirectionLight();
 
 	//ポイントライトを初期化する
-	//InitPointLight();
+	InitPointLight();
 
 	//スポットライトを初期化する
 	//InitSpotLight();
@@ -298,18 +298,18 @@ void ModelRender::Update()
 		m_animationPointer->Progress(g_gameTime->GetFrameDeltaTime());
 	}
 
-	/*m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
+	m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
 	if (g_pad[0]->IsPress(enButtonB)) {
 		m_light.ptPosition.y += g_pad[0]->GetLStickYF();
 	}
 	else {
 		m_light.ptPosition.z -= g_pad[0]->GetLStickYF();
-	}*/
+	}
 
-	// ライトの強さを変更する
-	m_light.dirColor.x += g_pad[0]->GetLStickXF() * 0.01f;
-	m_light.dirColor.y += g_pad[0]->GetLStickXF() * 0.01f;
-	m_light.dirColor.z += g_pad[0]->GetLStickXF() * 0.01f;
+	//// ライトの強さを変更する
+	//m_light.dirColor.x += g_pad[0]->GetLStickXF() * 0.01f;
+	//m_light.dirColor.y += g_pad[0]->GetLStickXF() * 0.01f;
+	//m_light.dirColor.z += g_pad[0]->GetLStickXF() * 0.01f;
 
 	//モデルの座標更新
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);

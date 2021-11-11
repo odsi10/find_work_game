@@ -28,8 +28,8 @@ bool Player::Start(ShadowMap* shadowMap)
 
 void Player::Update()
 {
-	Move();
-	Rotation();
+	/*Move();
+	Rotation();*/
 
 	
 }
