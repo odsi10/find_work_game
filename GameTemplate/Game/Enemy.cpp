@@ -15,7 +15,7 @@ bool Enemy::Start(ShadowMap* shadowMap)
 	m_enemyModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
-	m_enemyModel->Init(filePath::tkm::UnityChan,*shadowMap);
+	m_enemyModel->Init(filePath::tkm::EnemyModel,*shadowMap);
 	m_enemyCC.Init(
 		35.0f,
 		75.0f,
@@ -27,5 +27,6 @@ bool Enemy::Start(ShadowMap* shadowMap)
 
 void Enemy::Update()
 {
+	
 	m_enemyModel->SetPosition(m_position);
 }

@@ -16,10 +16,10 @@ bool Player::Start(ShadowMap* shadowMap)
 	m_playerModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
-	m_playerModel->Init(filePath::tkm::UnityChan,*shadowMap);
+	m_playerModel->Init(filePath::tkm::PlayerModel,*shadowMap);
 	m_playerCC.Init(
-		35.0f,
-		75.0f,
+		45.0f,
+		55.0f,
 		m_position
 	);
 
@@ -28,8 +28,8 @@ bool Player::Start(ShadowMap* shadowMap)
 
 void Player::Update()
 {
-	/*Move();
-	Rotation();*/
+	Move();
+	Rotation();
 }
 
 void Player::Move()
@@ -38,7 +38,7 @@ void Player::Move()
 	m_moveSpeed.z = g_pad[0]->GetLStickYF() * fSpeed;
 
 	m_position = m_playerCC.Execute(m_moveSpeed, 1.0f);
-	//m_moveSpeed.y -= 1.0f;
+	m_moveSpeed.y -= 1.0f;
 	m_playerModel->SetPosition(m_position);
 }
 

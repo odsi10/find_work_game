@@ -1,7 +1,7 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "GameCamera.h"
 
-//‘¼ƒNƒ‰ƒX‚ðƒCƒ“ƒNƒ‹[ƒh‚·‚é
+//ä»–ã‚¯ãƒ©ã‚¹ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã™ã‚‹
 #include "Player.h"
 
 GameCamera::GameCamera()
@@ -27,9 +27,10 @@ void GameCamera::Update()
 
 	m_position = m_target;
 
-	m_position.y += 50.0f;
+	m_position.y += 100.0f;
 	m_position.z += 250.0f;
 
 	g_camera3D->SetTarget(m_target);
 	g_camera3D->SetPosition(m_position);
+
 }

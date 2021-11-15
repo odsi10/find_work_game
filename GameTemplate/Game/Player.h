@@ -41,7 +41,7 @@ private:	//データメンバ
 	ModelRender* m_playerModel = nullptr;
 
 	CharacterController m_playerCC;
-	Vector3 m_position = { 0.0f,0.0f,0.0f };
+	Vector3 m_position = { 0.0f,0.0f,500.0f };
 	Vector3 m_moveSpeed = { 0.0f,0.0f,0.0f };
 	float fSpeed = -6.0f;
 	Quaternion m_rotation = { 0.0f,0.0f,0.0f,1.0f };

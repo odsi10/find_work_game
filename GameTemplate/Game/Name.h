@@ -10,7 +10,8 @@ namespace filePath	// ファイルパス
 	{
 		constexpr const char* UnityChan = "Assets/modelData/unityChan.tkm";
 		constexpr const char* PlayerModel = "Assets/modelData/player.tkm";
-		constexpr const char* BackGround = "Assets/modelData/em.tkm";
+		constexpr const char* EnemyModel = "Assets/modelData/enemy.tkm";
+		constexpr const char* BackGround = "Assets/modelData/backGround.tkm";
 	}
 
 	namespace tka	// アニメーション

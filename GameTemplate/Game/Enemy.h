@@ -29,6 +29,6 @@ private:	//データメンバ
 	ModelRender* m_enemyModel = nullptr;
 	CharacterController m_enemyCC;
 
-	Vector3 m_position = { 100.0f,0.0f,0.0f };
+	Vector3 m_position = { 00.0f,0.0f,0.0f };
 };
 

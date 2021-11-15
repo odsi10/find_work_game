@@ -159,9 +159,9 @@ void ModelRender::InitSpotLight()
 void ModelRender::InitAmbientLight()
 {
 	//ŠÂ‹«Œõ
-	m_light.ambientLight.x = 0.05f;
-	m_light.ambientLight.y = 0.05f;
-	m_light.ambientLight.z = 0.05f;
+	m_light.ambientLight.x = 0.4f;
+	m_light.ambientLight.y = 0.4f;
+	m_light.ambientLight.z = 0.4f;
 }
 
 void ModelRender::InitHemiLight()
@@ -222,7 +222,7 @@ void ModelRender::InitShadowReceiver(
 	//InitSpotLight();
 
 	//ŠÂ‹«Œõ‚ğ‰Šú‰»‚·‚é
-	//InitAmbientLight();
+	InitAmbientLight();
 
 	//”¼‹…ƒ‰ƒCƒg‚ğ‰Šú‰»‚·‚é
 	//InitHemiLight();
