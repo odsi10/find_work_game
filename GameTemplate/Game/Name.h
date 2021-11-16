@@ -8,15 +8,15 @@ namespace filePath	// ファイルパス
 {
 	namespace tkm	// モデル
 	{
-		constexpr const char* UnityChan = "Assets/modelData/unityChan.tkm";
-		constexpr const char* PlayerModel = "Assets/modelData/player.tkm";
-		constexpr const char* EnemyModel = "Assets/modelData/enemy.tkm";
-		constexpr const char* BackGround = "Assets/modelData/backGround.tkm";
+		constexpr const char* UnityChan = "Assets/modelData/unityChan.tkm";		// 仮モデル
+		constexpr const char* PlayerModel = "Assets/modelData/player.tkm";		// プレイヤー
+		constexpr const char* EnemyModel = "Assets/modelData/enemy.tkm";		// エネミー
+		constexpr const char* BackGround = "Assets/modelData/backGround.tkm";	//ステージ
 	}
 
 	namespace tka	// アニメーション
 	{
-		constexpr const char* MoveForward = "Assets/animData/moveForward.tka";
+		constexpr const char* MoveForward = "Assets/animData/moveForward.tka";	//前進
 	}
 }
 

@@ -20,14 +20,11 @@ public:	//メンバ関数
 	void DrawFinish(RenderContext& renderContext);
 
 private:	//データメンバ
-	RenderTarget mainRenderTarget;	// 32ビットの浮動小数点のカラーバッファーを保持したメインレンダリングターゲットを作成する
-	RenderTarget luminnceRenderTarget;	// 輝度抽出用のレンダリングターゲットを作成
-	SpriteInitData luminanceSpriteInitData;
-	Sprite luminanceSprite;
-	GaussianBlur gaussianBlur[4];
-	SpriteInitData finalSpriteInitData;
-	Sprite finalSprite;
-	SpriteInitData spriteInitData;
-	Sprite copyToFrameBufferSprite;
+	RenderTarget m_mainRenderTarget;	// 32ビットの浮動小数点のカラーバッファーを保持したメインレンダリングターゲットを作成する
+	RenderTarget m_luminnceRenderTarget;	// 輝度抽出用のレンダリングターゲットを作成
+	Sprite m_luminanceSprite;
+	GaussianBlur m_gaussianBlur[4];
+	Sprite m_finalSprite;
+	Sprite m_copyToFrameBufferSprite;
 };
 

@@ -3,7 +3,10 @@
 
 ShadowMap::ShadowMap()
 {
-    ShadowRenderTarget();
+    // シャドウマップのレンダリングターゲットの初期化
+    InitShadowRenderTarget();
+    // ガウシアンブラーの初期化
+    InitGaussianBlur();
 }
 
 ShadowMap::~ShadowMap()
@@ -23,11 +26,11 @@ void ShadowMap::Init()
 {
 }
 
-void ShadowMap::ShadowRenderTarget()
+void ShadowMap::InitShadowRenderTarget()
 {
     // step-1 シャドウマップ描画用のレンダリングターゲットを作成する
     float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    m_shadowMap.Create(
+    m_shadowMapRenderTarget.Create(
         1024,
         1024,
         1,
@@ -39,6 +42,11 @@ void ShadowMap::ShadowRenderTarget()
     );
 }
 
+void ShadowMap::InitGaussianBlur()
+{
+    m_gaussianBlur.Init(&m_shadowMapRenderTarget.GetRenderTargetTexture());
+}
+
 void ShadowMap::Draw(RenderContext& renderContext)
 {
     // カメラの位置を設定。これはライトの位置
@@ -47,7 +55,7 @@ void ShadowMap::Draw(RenderContext& renderContext)
     // カメラの注視点を設定。これがライトが照らしている場所
     m_lightCamera.SetTarget(0, 0, 0);
 
-    // 上方向を設定。今回はライトが真下を向いているので、X方向を上にしている
+    // 上方向を設定。今回はライトが下を向いているので、X方向を上にしている
     m_lightCamera.SetUp(1, 0, 0);
 
     m_lightCamera.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
@@ -58,9 +66,9 @@ void ShadowMap::Draw(RenderContext& renderContext)
 
     // シャドウマップにレンダリング
     // レンダリングターゲットをシャドウマップに変更する
-    renderContext.WaitUntilToPossibleSetRenderTarget(m_shadowMap);
-    renderContext.SetRenderTargetAndViewport(m_shadowMap);
-    renderContext.ClearRenderTargetView(m_shadowMap);
+    renderContext.WaitUntilToPossibleSetRenderTarget(m_shadowMapRenderTarget);
+    renderContext.SetRenderTargetAndViewport(m_shadowMapRenderTarget);
+    renderContext.ClearRenderTargetView(m_shadowMapRenderTarget);
 
     // 影モデルを描画
     for (auto model : m_modelArray) {
@@ -68,7 +76,10 @@ void ShadowMap::Draw(RenderContext& renderContext)
     }
     
     // 書き込み完了待ち
-    renderContext.WaitUntilFinishDrawingToRenderTarget(m_shadowMap);
+    renderContext.WaitUntilFinishDrawingToRenderTarget(m_shadowMapRenderTarget);
+
+    // シャドウマップをぼかすためのガウシアンブラーを実行する。
+    m_gaussianBlur.ExecuteOnGPU(renderContext, 5.0f);
 
     // 通常レンダリング
     // レンダリングターゲットをフレームバッファに戻す

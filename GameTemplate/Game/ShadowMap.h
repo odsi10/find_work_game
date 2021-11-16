@@ -5,9 +5,11 @@
 #include <Model.h>
 
 #include "ModelRender.h"
+#include "GaussianBlur.h"
 
 // 他クラスを使うために宣言する
 class ModelRender;
+class GaussianBlur;
 
 class ShadowMap
 {
@@ -38,7 +40,16 @@ public:
 	/// <param name="renderContext"></param>
 	void Draw(RenderContext& renderContext);
 
-	void ShadowRenderTarget();
+private:
+	/// <summary>
+	/// シャドウマップのレンダリングターゲットの初期化
+	/// </summary>
+	void InitShadowRenderTarget();
+
+	/// <summary>
+	/// ガウシアンブラーの初期化
+	/// </summary>
+	void InitGaussianBlur();
 
 public:
 	Camera& GetLightCamera()
@@ -48,7 +59,7 @@ public:
 
 	RenderTarget& GetRenderTarget()	//コピーに注意！！！
 	{
-		return m_shadowMap;
+		return m_shadowMapRenderTarget;
 	}
 
 private: //データメンバ
@@ -57,7 +68,9 @@ private: //データメンバ
 	// 影描画用のライトカメラを作成する
 	Camera m_lightCamera;
 
+	GaussianBlur m_gaussianBlur;
+
 	std::vector<Model*> m_modelArray;
 
-	RenderTarget m_shadowMap;	//シャドウマップ描画用のレンダリングターゲットを初期化する
+	RenderTarget m_shadowMapRenderTarget;	//シャドウマップ描画用のレンダリングターゲットを初期化する[
 };
