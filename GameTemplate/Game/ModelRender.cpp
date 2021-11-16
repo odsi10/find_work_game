@@ -22,24 +22,23 @@ bool ModelRender::Start(ShadowMap* shadowMap)
 void ModelRender::Init(
 	const char* filePath,
 	ShadowMap& shadowMap,
-	enModelUpAxis::EnModelUpAxis modelUpAxis/*,
+	enModelUpAxis::EnModelUpAxis modelUpAxis,
 	AnimationClip* animationClip,
-	int maxAnimationClipNum*/
+	int maxAnimationClipNum
 )
 {
 	//tkmファイルのファイルパスを保持
 	m_tkmFilePath = filePath;
-	////スケルトンのデータの読み込み
-	//InitSkeleton(filePath);
-
-	//モデルの初期化
-	InitModel(filePath, modelUpAxis);
 
 	InitShadowModel(&shadowMap);
 	InitShadowReceiver(&shadowMap, filePath, modelUpAxis);
 
-	////アニメーションを初期化
-	//InitAnimation(animationClip, maxAnimationClipNum);
+	if (m_initSkeleton == true) {
+		//スケルトンのデータの読み込み
+		InitSkeleton(filePath);
+		//アニメーションを初期化
+		InitAnimation(animationClip, maxAnimationClipNum);
+	}
 
 	//初期化完了
 	m_finishInit = true;
@@ -86,13 +85,6 @@ void ModelRender::InitAnimation(AnimationClip* animationClip, int maxAnimationCl
 		animationClip,
 		maxAnimationClipNum
 	);
-}
-
-void ModelRender::InitModel(const char* filePath,
-	enModelUpAxis::EnModelUpAxis modelUpAxis
-)
-{
-;
 }
 
 //////////////////////////////

@@ -5,9 +5,11 @@
 //他のクラスをインクルードする
 #include "Name.h"
 #include "ShadowMap.h"
+#include "AnimationClip.h"
 
 // 他クラスを使うために宣言する
 class ShadowMap;
+class AnimationClip;
 
 const int NUM_DIRECTIONAL_LIGHT = 4; // ディレクションライトの数
 
@@ -74,21 +76,14 @@ public:
 
 	void Init(const char* filePath,
 		ShadowMap& shadowMap,
-		enModelUpAxis::EnModelUpAxis modelUpAxis = enModelUpAxis::enModelUpAxisZ
-		/*AnimationClip * animationClip = nullptr,
-		int maxAnimationClipNum = 0*/
+		enModelUpAxis::EnModelUpAxis modelUpAxis = enModelUpAxis::enModelUpAxisZ,
+		AnimationClip * animationClip = nullptr,
+		int maxAnimationClipNum = 0
 	);
 
 
 
 private:
-	/**
-	 * @brief モデルの初期化
-	 * @param filePath tkmファイルのファイルパス
-	*/
-	void InitModel(const char* filePath,
-		enModelUpAxis::EnModelUpAxis = enModelUpAxis::enModelUpAxisZ
-	);
 
 	void InitDirectionLight(); //ディレクションライト
 	void InitPointLight();     //ポイントライト
@@ -233,4 +228,5 @@ private: //data menber
 	ShadowMap* m_shadowMap = nullptr;
 
 	bool m_shadowCasterMake = false;
+	bool m_initSkeleton = false;
 };

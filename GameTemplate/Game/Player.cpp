@@ -34,8 +34,8 @@ void Player::Update()
 
 void Player::Move()
 {
-	m_moveSpeed.x = g_pad[0]->GetLStickXF() * fSpeed;
-	m_moveSpeed.z = g_pad[0]->GetLStickYF() * fSpeed;
+	m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
+	m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
 
 	m_position = m_playerCC.Execute(m_moveSpeed, 1.0f);
 	m_moveSpeed.y -= 1.0f;
@@ -50,9 +50,11 @@ void Player::Rotation()
 		&& fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
 	}
-	angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
-	m_rotation.SetRotation(g_vec3AxisY, angle);
-	qRot.SetRotationDeg(g_vec3AxisY, 180.0f);
-	m_rotation.Multiply(qRot, m_rotation);
+	m_angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+	m_rotation.SetRotation(g_vec3AxisY, m_angle);
+	m_qRot.SetRotationDeg(g_vec3AxisY, 180.0f);
+	m_rotation.Multiply(m_qRot, m_rotation);
 	m_playerModel->SetRotation(m_rotation);
+
+	
 }

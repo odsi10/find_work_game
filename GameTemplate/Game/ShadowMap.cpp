@@ -59,8 +59,8 @@ void ShadowMap::Draw(RenderContext& renderContext)
     m_lightCamera.SetUp(1, 0, 0);
 
     m_lightCamera.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
-    m_lightCamera.SetWidth(500.0f);
-    m_lightCamera.SetHeight(500.0f);
+    m_lightCamera.SetWidth(1000.0f);
+    m_lightCamera.SetHeight(1000.0f);
     // ライトビュープロジェクション行列を計算している
     m_lightCamera.Update();
 
