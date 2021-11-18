@@ -244,7 +244,7 @@ void ModelRender::InitShadowReceiver(
 	m_modelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
 
 	//シャドウマップを拡張SRVに設定する
-	m_modelInitData.m_expandShaderResoruceView = &shadowMap->GetRenderTarget().GetRenderTargetTexture();
+	m_modelInitData.m_expandShaderResoruceView = &shadowMap->GetShadowMapRenderTarget().GetRenderTargetTexture();
 
 	//初期化情報を使ってモデル表示処理を初期化する
 	m_model.Init(m_modelInitData);

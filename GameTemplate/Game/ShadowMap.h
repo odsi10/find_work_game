@@ -52,12 +52,20 @@ private:
 	void InitGaussianBlur();
 
 public:
+	/// <summary>
+	/// ライトカメラのゲッター
+	/// </summary>
+	/// <returns>ライトカメラ</returns>
 	Camera& GetLightCamera()
 	{
 		return m_lightCamera;
 	}
 
-	RenderTarget& GetRenderTarget()	//コピーに注意！！！
+	/// <summary>
+	/// シャドウマップのレンダリングターゲットのゲッター
+	/// </summary>
+	/// <returns></returns>
+	RenderTarget& GetShadowMapRenderTarget()	// &なしのクラスのコピーに注意！！！アドレスを渡そう
 	{
 		return m_shadowMapRenderTarget;
 	}
@@ -72,5 +80,5 @@ private: //データメンバ
 
 	std::vector<Model*> m_modelArray;
 
-	RenderTarget m_shadowMapRenderTarget;	//シャドウマップ描画用のレンダリングターゲットを初期化する[
+	RenderTarget m_shadowMapRenderTarget;	// シャドウマップ描画用のレンダリングターゲットを初期化する[
 };

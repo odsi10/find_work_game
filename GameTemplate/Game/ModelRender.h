@@ -201,6 +201,11 @@ public: //Setä÷êî
 		m_scale = scale;
 	}
 
+	void SetInitSkeleton(bool skeleton)
+	{
+		m_initSkeleton = skeleton;
+	}
+
 	/*void SetShadowCasterMake(const bool casterMake)
 	{
 		m_shadowCasterMake = casterMake;

@@ -12,9 +12,15 @@ public:	//コンストラクタ諸々
 	void Update();
 
 public:	//メンバ関数
-	//初期化処理
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
 	void Init();
 
+	/// <summary>
+	/// レンダリングターゲット利用
+	/// </summary>
+	/// <param name="renderContext"></param>
 	void DrawWait(RenderContext& renderContext);
 
 	void DrawFinish(RenderContext& renderContext);
