@@ -12,30 +12,32 @@ Player::~Player()
 
 bool Player::Start(ShadowMap* shadowMap)
 {
-	m_playerAnimation[moveForward].Load(filePath::tka::MoveForward);
-	m_playerAnimation[moveForward].SetLoopFlag(true);
+	m_playerAnimation[MoveForward].Load(filePath::tka::MoveForward);
 
 	//m_playerModel->SetShadowCasterMake(true);
 	m_playerModel = NewGO<ModelRender>(0);
 	/*m_model->Seta(true);
 	m_model->Setb(true);*/
-	m_playerModel->SetInitSkeleton(true);
+	//m_playerModel->SetInitSkeleton(true);
 	m_playerModel->Init(filePath::tkm::PlayerModel, *shadowMap, enModelUpAxis::enModelUpAxisZ, m_playerAnimation, AnimationMax);
 	m_playerCC.Init(
 		45.0f,
 		55.0f,
 		m_position
 	);
+
 	m_playerModel->SetPosition(m_position);
-	m_playerModel->PlayAnimation(moveForward);
 
 	return true;
 }
 
 void Player::Update()
-{ 
+{
 	Move();
 	Rotation();
+	/*if (g_pad[0]->IsPress(enButtonA)) {
+		m_playerAnimation[MoveForward].SetLoopFlag(true);
+	}*/
 }
 
 void Player::Move()
@@ -60,7 +62,11 @@ void Player::Rotation()
 	m_rotation.SetRotation(g_vec3AxisY, m_angle);
 	m_qRot.SetRotationDeg(g_vec3AxisY, 180.0f);
 	m_rotation.Multiply(m_qRot, m_rotation);
-	m_playerModel->SetRotation(m_rotation);
 
+	m_playerModel->SetRotation(m_rotation);
+}
+
+void Player::Animation()
+{
 	
 }

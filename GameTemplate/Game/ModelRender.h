@@ -132,8 +132,6 @@ public:
 		return m_animationPointer->IsInited();
 	}
 
-
-
 public: //GetŠÖ”
 
 	const Vector3 GetPosition()

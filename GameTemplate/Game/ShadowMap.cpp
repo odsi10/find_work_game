@@ -35,8 +35,7 @@ void ShadowMap::InitShadowRenderTarget()
         1024,
         1,
         1,
-        //【注目】シャドウマップのカラーバッファのフォーマットを変更している。
-        DXGI_FORMAT_R32_FLOAT,
+        DXGI_FORMAT_R32G32_FLOAT,
         DXGI_FORMAT_D32_FLOAT,
         clearColor
     );
@@ -44,7 +43,9 @@ void ShadowMap::InitShadowRenderTarget()
 
 void ShadowMap::InitGaussianBlur()
 {
-    m_gaussianBlur.Init(&m_shadowMapRenderTarget.GetRenderTargetTexture());
+    m_gaussianBlur.Init(
+        &m_shadowMapRenderTarget.GetRenderTargetTexture()
+    );
 }
 
 void ShadowMap::Draw(RenderContext& renderContext)

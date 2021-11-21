@@ -31,14 +31,17 @@ void ModelRender::Init(
 	m_tkmFilePath = filePath;
 
 	InitShadowModel(&shadowMap);
+	//InitShadowReceiver(&shadowMap, filePath, modelUpAxis);
+
+	//if (m_initSkeleton == true) {
+		//スケルトンのデータの読み込み
+	InitSkeleton(filePath);
+
 	InitShadowReceiver(&shadowMap, filePath, modelUpAxis);
 
-	if (m_initSkeleton == true) {
-		//スケルトンのデータの読み込み
-		InitSkeleton(filePath);
-		//アニメーションを初期化
-		InitAnimation(animationClip, maxAnimationClipNum);
-	}
+	//アニメーションを初期化
+	InitAnimation(animationClip, maxAnimationClipNum);
+	//}
 
 	//初期化完了
 	m_finishInit = true;
@@ -183,6 +186,8 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 	m_shadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
 	
 	m_shadowModelInitData.m_tkmFilePath = m_tkmFilePath;
+
+	m_shadowModelInitData.m_vsSkinEntryPointFunc = "VSMain";
 	
 	m_ShadowModel.Init(m_shadowModelInitData);
 

@@ -27,7 +27,7 @@ public:	//Get関数
 private:	//アニメーション
 	enum AnimationEnum	//アニメーションのenum
 	{
-		moveForward,
+		MoveForward,
 		AnimationMax
 	};
 
@@ -36,6 +36,7 @@ private:	//アニメーション
 private:	// 移動処理
 	void Move();
 	void Rotation();
+	void Animation();
 
 private:	//データメンバ
 	ModelRender* m_playerModel = nullptr;

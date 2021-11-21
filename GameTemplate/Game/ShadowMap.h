@@ -11,6 +11,13 @@
 class ModelRender;
 class GaussianBlur;
 
+// step-3 GPU側で利用するシャドウ用の構造体を定義する
+struct ShadowParam
+{
+	Matrix m_mLVP;	// ライトビュープロジェクション行列
+	Vector3 m_lightPos;
+};
+
 class ShadowMap
 {
 public:
