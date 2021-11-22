@@ -64,7 +64,7 @@ struct SPSIn
 
     // ライトビュースクリーン空間での座標を追加
     float4 posInLVP : TEXCOORD1;    // ライトビュースクリーン空間でのピクセルの座標
-    float3 worldPos : TEXCOORD2;
+    float4 worldPos : TEXCOORD2;
 };
 
 ///////////////////////////////////////////
@@ -121,7 +121,6 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
         m = mWorld;
     }
 
-    float4 worldPos = mul(mWorld, vsIn.pos);
     psIn.pos = mul(m, vsIn.pos);   // モデルの頂点をワールド座標系に変換
     psIn.worldPos = psIn.pos;
     psIn.pos = mul(mView, psIn.pos);

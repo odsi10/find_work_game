@@ -154,10 +154,7 @@ public: //GetŠÖ”
 		return m_model;
 	}
 
-	Model GetShadowModel()
-	{
-		m_ShadowModel;
-	}
+	
 
 public: //SetŠÖ”
 

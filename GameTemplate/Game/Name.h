@@ -16,9 +16,8 @@ namespace filePath	// ファイルパス
 
 	namespace tka	// アニメーション
 	{
-		constexpr const char* MoveForward = "Assets/animData/moveForward.tka";	//前進
-
-		constexpr const char* IdleUN = "Assets/animData/idle.tka";	//前進
+		constexpr const char* Idle = "Assets/animData/idle.tka";	// 立ち
+		constexpr const char* MoveForward = "Assets/animData/moveForward.tka";	// 前進
 	}
 }
 

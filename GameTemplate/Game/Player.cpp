@@ -12,7 +12,10 @@ Player::~Player()
 
 bool Player::Start(ShadowMap* shadowMap)
 {
+	m_playerAnimation[Idle].Load(filePath::tka::Idle);
+	m_playerAnimation[Idle].SetLoopFlag(true);
 	m_playerAnimation[MoveForward].Load(filePath::tka::MoveForward);
+	m_playerAnimation[MoveForward].SetLoopFlag(true);
 
 	//m_playerModel->SetShadowCasterMake(true);
 	m_playerModel = NewGO<ModelRender>(0);
@@ -26,6 +29,8 @@ bool Player::Start(ShadowMap* shadowMap)
 		m_position
 	);
 
+	m_playerModel->PlayAnimation(Idle);	
+
 	m_playerModel->SetPosition(m_position);
 
 	return true;
@@ -35,9 +40,7 @@ void Player::Update()
 {
 	Move();
 	Rotation();
-	/*if (g_pad[0]->IsPress(enButtonA)) {
-		m_playerAnimation[MoveForward].SetLoopFlag(true);
-	}*/
+	Animation();
 }
 
 void Player::Move()
@@ -68,5 +71,16 @@ void Player::Rotation()
 
 void Player::Animation()
 {
-	
+	if (g_pad[0]->IsPress(enButtonA))
+	{
+		m_playerModel->PlayAnimation(MoveForward);
+	}
+	else if (g_pad[0]->GetLStickXF() != 0 && m_playerCC.IsOnGround() || g_pad[0]->GetLStickYF() != 0 && m_playerCC.IsOnGround())
+	{
+		m_playerModel->PlayAnimation(MoveForward);
+	}
+	else 
+	{
+		m_playerModel->PlayAnimation(Idle);
+	}
 }

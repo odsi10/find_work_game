@@ -27,6 +27,7 @@ public:	//Get関数
 private:	//アニメーション
 	enum AnimationEnum	//アニメーションのenum
 	{
+		Idle,
 		MoveForward,
 		AnimationMax
 	};

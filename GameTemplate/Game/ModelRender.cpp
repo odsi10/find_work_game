@@ -287,13 +287,13 @@ void ModelRender::Update()
 	}
 
 	//スケルトンを更新。
-	if (m_skeletonPointer) {	//スケルトンが初期化されていたら
-		m_skeletonPointer->Update(m_model.GetWorldMatrix());
-	}
-	//アニメーションを進める。
-	if (m_animationPointer) {	//アニメーションが初期化されていたら
-		m_animationPointer->Progress(g_gameTime->GetFrameDeltaTime());
-	}
+	//if (m_skeletonPointer) {	//スケルトンが初期化されていたら
+	//	m_skeletonPointer->Update(m_model.GetWorldMatrix());
+	//}
+	////アニメーションを進める。
+	//if (m_animationPointer) {	//アニメーションが初期化されていたら
+	//	m_animationPointer->Progress(g_gameTime->GetFrameDeltaTime());
+	//}
 
 	/*m_light.ptPosition.x -= g_pad[0]->GetLStickXF();
 	if (g_pad[0]->IsPress(enButtonB)) {
