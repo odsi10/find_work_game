@@ -18,6 +18,8 @@ namespace filePath	// ファイルパス
 	{
 		constexpr const char* Idle = "Assets/animData/idle.tka";	// 立ち
 		constexpr const char* MoveForward = "Assets/animData/moveForward.tka";	// 前進
+		constexpr const char* MoveForwardSecondPower = "Assets/animData/moveForwardSecondPower.tka";	// 前進
+		constexpr const char* MoveForwardThirdPower = "Assets/animData/moveForwardThirdPower.tka";	// 前進
 	}
 }
 

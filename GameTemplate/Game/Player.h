@@ -29,6 +29,8 @@ private:	//アニメーション
 	{
 		Idle,
 		MoveForward,
+		MoveForwardSecondPower,
+		MoveForwardThirdPower,
 		AnimationMax
 	};
 
@@ -49,5 +51,7 @@ private:	//データメンバ
 	Quaternion m_rotation = { 0.0f,0.0f,0.0f,1.0f };
 	float m_angle;
 	Quaternion m_qRot;
+
+	float m_powerTimer = 0.0f;
 };
 

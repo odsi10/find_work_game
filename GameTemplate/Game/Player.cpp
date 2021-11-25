@@ -16,6 +16,10 @@ bool Player::Start(ShadowMap* shadowMap)
 	m_playerAnimation[Idle].SetLoopFlag(true);
 	m_playerAnimation[MoveForward].Load(filePath::tka::MoveForward);
 	m_playerAnimation[MoveForward].SetLoopFlag(true);
+	m_playerAnimation[MoveForwardSecondPower].Load(filePath::tka::MoveForwardSecondPower);
+	m_playerAnimation[MoveForwardSecondPower].SetLoopFlag(true);
+	m_playerAnimation[MoveForwardThirdPower].Load(filePath::tka::MoveForwardThirdPower);
+	m_playerAnimation[MoveForwardThirdPower].SetLoopFlag(true);
 
 	//m_playerModel->SetShadowCasterMake(true);
 	m_playerModel = NewGO<ModelRender>(0);
@@ -45,12 +49,14 @@ void Player::Update()
 
 void Player::Move()
 {
-	m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
-	m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
+	if (!g_pad[0]->IsPress(enButtonA)) {
+		m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
+		m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
 
-	m_position = m_playerCC.Execute(m_moveSpeed, 1.0f);
-	m_moveSpeed.y -= 1.0f;
-	m_playerModel->SetPosition(m_position);
+		m_position = m_playerCC.Execute(m_moveSpeed, 1.0f);
+		m_moveSpeed.y -= 1.0f;
+		m_playerModel->SetPosition(m_position);
+	}
 }
 
 void Player::Rotation()
@@ -73,7 +79,19 @@ void Player::Animation()
 {
 	if (g_pad[0]->IsPress(enButtonA))
 	{
-		m_playerModel->PlayAnimation(MoveForward);
+		m_powerTimer++;
+		if (m_powerTimer < 180.0f) 
+		{
+			m_playerModel->PlayAnimation(MoveForward);
+		}
+		else if (m_powerTimer > 180.0f && m_powerTimer < 360.0f) 
+		{
+			m_playerModel->PlayAnimation(MoveForwardSecondPower);
+		}
+		else if (m_powerTimer > 360.0f)
+		{
+			m_playerModel->PlayAnimation(MoveForwardThirdPower);
+		}
 	}
 	else if (g_pad[0]->GetLStickXF() != 0 && m_playerCC.IsOnGround() || g_pad[0]->GetLStickYF() != 0 && m_playerCC.IsOnGround())
 	{
@@ -82,5 +100,10 @@ void Player::Animation()
 	else 
 	{
 		m_playerModel->PlayAnimation(Idle);
+	}
+
+	if (!g_pad[0]->IsPress(enButtonA)) 
+	{
+		m_powerTimer = 0;
 	}
 }
