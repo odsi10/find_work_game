@@ -20,9 +20,9 @@ public:	// コンストラクタ諸々
 	void Update();
 
 private:	// データメンバ
-	BackGround* m_backGround = nullptr;
-	Player* m_player = nullptr;
-	GameCamera* m_gameCamera = nullptr;
-	Enemy* m_enemy = nullptr;
+	BackGround* m_backGround = nullptr;	// ステージ
+	Player* m_player = nullptr;			// プレイヤー
+	GameCamera* m_gameCamera = nullptr; // ゲームカメラ
+	Enemy* m_enemy = nullptr;			// エネミー
 };
 

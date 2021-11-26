@@ -13,12 +13,13 @@ BackGround::~BackGround()
 
 bool BackGround::Start(ShadowMap* shadowMap)
 {
-	/*m_model->Seta(true);
-	m_model->Setb(true);*/
-	//m_backGroundModel->SetShadowCasterMake(false);
+	// モデルレンダラーのインスタンスを作成
 	m_backGroundModel = NewGO<ModelRender>(0);
+
+	// モデルの初期化
 	m_backGroundModel->Init(filePath::tkm::BackGround,*shadowMap);
 
+	// 静的オブジェクトのコリジョンを作成
 	m_backGroundPSO.CreateFromModel(m_backGroundModel->GetModel(), m_backGroundModel->GetModel().GetWorldMatrix());
 
 	return true;
@@ -26,8 +27,4 @@ bool BackGround::Start(ShadowMap* shadowMap)
 
 void BackGround::Update()
 {
-	/*m_position.x -= g_pad[0]->GetLStickXF();
-	m_position.y -= g_pad[0]->GetLStickYF();
-
-	m_backGroundModel->SetPosition(m_position);*/
 }

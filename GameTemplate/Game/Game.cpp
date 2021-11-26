@@ -21,12 +21,16 @@ Game::~Game()
 
 bool Game::Start(ShadowMap* shadowMap)
 {
+	// ステージ
 	m_backGround = NewGO<BackGround>(priority::PriorityZero, findName::BackGround);
 
+	// プレイヤー
 	m_player = NewGO<Player>(priority::PriorityZero,findName::Player);
 
+	// ゲームカメラ
 	m_gameCamera = NewGO<GameCamera>(priority::PriorityZero, findName::GameCamera);
 
+	// エネミー
 	m_enemy = NewGO<Enemy>(priority::PriorityZero, findName::Enemy);
 
 	return true;

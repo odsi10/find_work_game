@@ -12,20 +12,24 @@ Player::~Player()
 
 bool Player::Start(ShadowMap* shadowMap)
 {
+	// アニメーションクリップをロードし、ループ再生するか決める
+	// 待機
 	m_playerAnimation[Idle].Load(filePath::tka::Idle);
 	m_playerAnimation[Idle].SetLoopFlag(true);
+	// 前進
 	m_playerAnimation[MoveForward].Load(filePath::tka::MoveForward);
 	m_playerAnimation[MoveForward].SetLoopFlag(true);
+	// 前進パワー2段目
 	m_playerAnimation[MoveForwardSecondPower].Load(filePath::tka::MoveForwardSecondPower);
 	m_playerAnimation[MoveForwardSecondPower].SetLoopFlag(true);
+	// 前進パワー３段目
 	m_playerAnimation[MoveForwardThirdPower].Load(filePath::tka::MoveForwardThirdPower);
 	m_playerAnimation[MoveForwardThirdPower].SetLoopFlag(true);
 
-	//m_playerModel->SetShadowCasterMake(true);
+	// モデルのインスタンスを作成
 	m_playerModel = NewGO<ModelRender>(0);
-	/*m_model->Seta(true);
-	m_model->Setb(true);*/
-	//m_playerModel->SetInitSkeleton(true);
+
+	// キャラクターコントローラーの作成 (かご型コリジョン)
 	m_playerModel->Init(filePath::tkm::PlayerModel, *shadowMap, enModelUpAxis::enModelUpAxisZ, m_playerAnimation, AnimationMax);
 	m_playerCC.Init(
 		45.0f,
@@ -33,77 +37,19 @@ bool Player::Start(ShadowMap* shadowMap)
 		m_position
 	);
 
+	// アニメーションのIdleを再生する
 	m_playerModel->PlayAnimation(Idle);	
 
+	// 位置を指定
 	m_playerModel->SetPosition(m_position);
 
 	return true;
 }
 
-void Player::Update()
+void Player::Update()	// 各関数の中身はPlayerActionに書いてある
 {
 	Move();
 	Rotation();
 	Animation();
-}
-
-void Player::Move()
-{
-	if (!g_pad[0]->IsPress(enButtonA)) {
-		m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
-		m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
-
-		m_position = m_playerCC.Execute(m_moveSpeed, 1.0f);
-		m_moveSpeed.y -= 1.0f;
-		m_playerModel->SetPosition(m_position);
-	}
-}
-
-void Player::Rotation()
-{
-	m_moveSpeed.x = g_pad[0]->GetLStickXF();
-	m_moveSpeed.z = g_pad[0]->GetLStickYF();
-	if (fabsf(m_moveSpeed.x) < 0.001f
-		&& fabsf(m_moveSpeed.z) < 0.001f) {
-		return;
-	}
-	m_angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
-	m_rotation.SetRotation(g_vec3AxisY, m_angle);
-	m_qRot.SetRotationDeg(g_vec3AxisY, 180.0f);
-	m_rotation.Multiply(m_qRot, m_rotation);
-
-	m_playerModel->SetRotation(m_rotation);
-}
-
-void Player::Animation()
-{
-	if (g_pad[0]->IsPress(enButtonA))
-	{
-		m_powerTimer++;
-		if (m_powerTimer < 180.0f) 
-		{
-			m_playerModel->PlayAnimation(MoveForward);
-		}
-		else if (m_powerTimer > 180.0f && m_powerTimer < 360.0f) 
-		{
-			m_playerModel->PlayAnimation(MoveForwardSecondPower);
-		}
-		else if (m_powerTimer > 360.0f)
-		{
-			m_playerModel->PlayAnimation(MoveForwardThirdPower);
-		}
-	}
-	else if (g_pad[0]->GetLStickXF() != 0 && m_playerCC.IsOnGround() || g_pad[0]->GetLStickYF() != 0 && m_playerCC.IsOnGround())
-	{
-		m_playerModel->PlayAnimation(MoveForward);
-	}
-	else 
-	{
-		m_playerModel->PlayAnimation(Idle);
-	}
-
-	if (!g_pad[0]->IsPress(enButtonA)) 
-	{
-		m_powerTimer = 0;
-	}
+	PowerRelease();
 }

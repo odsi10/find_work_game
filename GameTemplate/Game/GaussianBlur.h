@@ -41,11 +41,11 @@ private:
 	/// </summary>
 	void UpdateWeightsTable(float blurPower);
 private:
-	enum { NUM_WEIGHTS = 8 };				//重みの数。
-	float m_weights[NUM_WEIGHTS];			//重みテーブル。
-	Texture* m_originalTexture = nullptr;	//オリジナルテクスチャ。
-	RenderTarget m_xBlurRenderTarget;		//横ボケ画像を描画するレンダリングターゲット。
-	RenderTarget m_yBlurRenderTarget;		//縦ボケ画像を描画するレンダリングターゲット。
-	Sprite m_xBlurSprite;					//横ボケ画像を描画するためのスプライト。
-	Sprite m_yBlurSprite;					//縦ボケ画像を描画するためのスプライト。
+	enum { NUM_WEIGHTS = 8 };				// 重みの数。
+	float m_weights[NUM_WEIGHTS];			// 重みテーブル。
+	Texture* m_originalTexture = nullptr;	// オリジナルテクスチャ。
+	RenderTarget m_xBlurRenderTarget;		// 横ボケ画像を描画するレンダリングターゲット。
+	RenderTarget m_yBlurRenderTarget;		// 縦ボケ画像を描画するレンダリングターゲット。
+	Sprite m_xBlurSprite;					// 横ボケ画像を描画するためのスプライト。
+	Sprite m_yBlurSprite;					// 縦ボケ画像を描画するためのスプライト。
 };

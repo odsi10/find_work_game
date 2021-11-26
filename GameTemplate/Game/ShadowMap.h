@@ -8,19 +8,18 @@
 #include "GaussianBlur.h"
 
 // 他クラスを使うために宣言する
-class ModelRender;
 class GaussianBlur;
 
-// step-3 GPU側で利用するシャドウ用の構造体を定義する
+// GPU側で利用するシャドウ用の構造体を定義する
 struct ShadowParam
 {
-	Matrix m_mLVP;	// ライトビュープロジェクション行列
-	Vector3 m_lightPos;
+	Matrix m_mLVP;		// ライトビュープロジェクション行列
+	Vector3 m_lightPos;	// ライトカメラの座標
 };
 
 class ShadowMap
 {
-public:
+public:	//コンストラクタ諸々
 	ShadowMap();
 	~ShadowMap();
 	bool Start();
@@ -78,14 +77,11 @@ public:
 	}
 
 private: //データメンバ
-	ModelRender* m_modelRender = nullptr;
+	Camera m_lightCamera;					// 影描画用のライトカメラを作成する
 
-	// 影描画用のライトカメラを作成する
-	Camera m_lightCamera;
+	GaussianBlur m_gaussianBlur;			// ガウシアンブラー
 
-	GaussianBlur m_gaussianBlur;
+	std::vector<Model*> m_modelArray;		// 影モデルの登録
 
-	std::vector<Model*> m_modelArray;
-
-	RenderTarget m_shadowMapRenderTarget;	// シャドウマップ描画用のレンダリングターゲットを初期化する[
+	RenderTarget m_shadowMapRenderTarget;	// シャドウマップ描画用のレンダリングターゲットを初期化する
 };

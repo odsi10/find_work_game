@@ -26,7 +26,7 @@ void Bloom::Init()
         720,
         1,
         1,
-        // 【注目】カラーバッファーのフォーマットを32bit浮動小数点にしている
+        // カラーバッファーのフォーマットを32bit浮動小数点にしている
         DXGI_FORMAT_R32G32B32A32_FLOAT,
         DXGI_FORMAT_D32_FLOAT
     );
@@ -63,7 +63,6 @@ void Bloom::Init()
     // 作成した初期化情報をもとにスプライトを初期化する。
     m_luminanceSprite.Init(luminanceSpriteInitData);
 
-    // ガウシアンブラーを初期化
     // gaussianBlur[0]は輝度テクスチャにガウシアンブラーをかける。
     m_gaussianBlur[0].Init(&m_luminnceRenderTarget.GetRenderTargetTexture());
     // gaussianBlur[1]はgaussianBlur[0]のテクスチャにガウシアンブラーをかける。
@@ -93,7 +92,6 @@ void Bloom::Init()
     finalSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
 
     // 初期化情報を元に加算合成用のスプライトを初期化する。
-    
     m_finalSprite.Init(finalSpriteInitData);
 
     // テクスチャを貼り付けるためのスプライトを初期化する

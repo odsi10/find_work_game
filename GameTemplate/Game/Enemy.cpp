@@ -12,11 +12,13 @@ Enemy::~Enemy()
 
 bool Enemy::Start(ShadowMap* shadowMap)
 {
+	// モデルのインスタンスを作成する
 	m_enemyModel = NewGO<ModelRender>(0);
-	/*m_model->Seta(true);
-	m_model->Setb(true);*/
-	m_enemyModel->SetInitSkeleton(false);
+
+	// モデルを初期化する
 	m_enemyModel->Init(filePath::tkm::EnemyModel,*shadowMap);
+
+	// キャラクターコントローラーを作成する
 	m_enemyCC.Init(
 		35.0f,
 		75.0f,
@@ -28,6 +30,6 @@ bool Enemy::Start(ShadowMap* shadowMap)
 
 void Enemy::Update()
 {
-	
+	// 位置の更新
 	m_enemyModel->SetPosition(m_position);
 }

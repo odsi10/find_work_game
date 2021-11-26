@@ -12,9 +12,9 @@ public:	//コンストラクタ諸々
 	void Update();
 
 public:
-	Player* m_player = nullptr;
+	Player* m_player = nullptr;	// プレイヤー
 	
-	Vector3 m_position = { 0.0f,0.0f,0.0f };
-	Vector3 m_target = { 0.0f,0.0f,0.0f };
+	Vector3 m_position = { 0.0f,0.0f,0.0f };	// 位置
+	Vector3 m_target = { 0.0f,0.0f,0.0f };		// カメラのターゲット
 };
 

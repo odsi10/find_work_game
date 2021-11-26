@@ -296,9 +296,9 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GaussianBlur.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelStandard.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ModelRender.cpp" />
+    <ClCompile Include="PlayerAction.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -377,7 +377,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GaussianBlur.h" />
-    <ClInclude Include="ModelStandard.h" />
     <ClInclude Include="Name.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ModelRender.h" />

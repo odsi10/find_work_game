@@ -23,12 +23,11 @@ private:	//アニメーション
 		AnimationMax
 	};
 
-	AnimationClip m_playerAnimation[AnimationMax];	//アニメーションクリップ
+	AnimationClip m_playerAnimation[AnimationMax];	// アニメーションクリップ
 
 private:	//データメンバ
-	ModelRender* m_enemyModel = nullptr;
-	CharacterController m_enemyCC;
+	ModelRender* m_enemyModel = nullptr;			// モデルレンダラー
+	CharacterController m_enemyCC;					// キャラクターコントローラー
 
-	Vector3 m_position = { 00.0f,0.0f,0.0f };
+	Vector3 m_position = { 0.0f,0.0f,0.0f };		// モデルの位置
 };
-
