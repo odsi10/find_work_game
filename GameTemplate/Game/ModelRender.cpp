@@ -181,8 +181,9 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 	// ファイルパスを指定
 	m_shadowModelInitData.m_tkmFilePath = m_tkmFilePath;
 
+
 	
-	m_shadowModelInitData.m_vsSkinEntryPointFunc = "VSMain";
+	m_shadowModelInitData.m_vsSkinEntryPointFunc = "VSSkinMain";
 	
 	// 初期化情報をもとに初期化する
 	m_ShadowModel.Init(m_shadowModelInitData);

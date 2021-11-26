@@ -14,8 +14,9 @@ void Player::Move()
 		m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
 		m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
 	}
-	else
+	else if(m_playerCC.IsOnGround())
 	{
+		m_moveSpeed = { 0.0f,0.0f,0.0f };
 		m_powerFlag = true;
 		// パワータイマーが60.0fより小さいとき
 		if (m_powerTimer < 60.0f && m_powerFlag == true && !g_pad[0]->IsPress(enButtonA))
@@ -50,15 +51,17 @@ void Player::Move()
 void Player::Rotation()
 {
 	// アナログスティックの傾きを取得
-	m_moveSpeed.x = g_pad[0]->GetLStickXF();
-	m_moveSpeed.z = g_pad[0]->GetLStickYF();
+	const float moveForward = g_pad[0]->GetLStickXF();
+	const float moveRight = g_pad[0]->GetLStickYF();
+	//m_moveSpeed.x = g_pad[0]->GetLStickXF();
+	//m_moveSpeed.z = g_pad[0]->GetLStickYF();
 	// 傾きが小さすぎる場合は無視する
-	if (fabsf(m_moveSpeed.x) < 0.001f
-		&& fabsf(m_moveSpeed.z) < 0.001f) {
+	if (fabsf(moveForward) < 0.001f
+		&& fabsf(moveRight) < 0.001f) {
 		return;
 	}
 	// アークタンジェントを使って値を割り出す
-	m_angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+	m_angle = atan2(moveForward, moveRight);
 	// 軸周りの回転クォータニオンを作成
 	m_rotation.SetRotation(g_vec3AxisY, m_angle);
 	// 軸周りの回転クォータニオンを作成
