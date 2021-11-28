@@ -2,7 +2,7 @@
  * @brief 影が落とされるモデル用のシェーダー
  */
 
-// モデル用の定数バッファー
+ // モデル用の定数バッファー
 cbuffer ModelCb : register(b0)
 {
     float4x4 mWorld;
@@ -237,7 +237,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // step-14 スポットライトの反射光を最終的な反射光に足し算する
     finalLig += diffSpotLight + specSpotLight;
     float4 color = g_albedo.Sample(g_sampler, psIn.uv);
-    
+
     // テクスチャカラーに求めた光を乗算して最終出力カラーを求める
     color.xyz *= finalLig;
 

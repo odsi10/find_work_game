@@ -183,7 +183,7 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 
 
 	
-	m_shadowModelInitData.m_vsSkinEntryPointFunc = "VSSkinMain";
+	m_shadowModelInitData.m_vsSkinEntryPointFunc  = "VSSkinMain";
 	
 	// ‰Šú‰»î•ñ‚ğ‚à‚Æ‚É‰Šú‰»‚·‚é
 	m_ShadowModel.Init(m_shadowModelInitData);
