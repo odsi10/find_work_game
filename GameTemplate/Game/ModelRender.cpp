@@ -25,8 +25,6 @@ void ModelRender::Init(
 	// tkmファイルのファイルパスを保持
 	m_tkmFilePath = filePath;
 
-	InitShadowModel(&shadowMap);
-
 	// スケルトンのデータの読み込み
 	InitSkeleton(filePath);
 
@@ -35,6 +33,8 @@ void ModelRender::Init(
 
 	// アニメーションを初期化
 	InitAnimation(animationClip, maxAnimationClipNum);
+
+	InitShadowModel(&shadowMap);
 	
 	// 初期化完了
 	m_finishInit = true;
@@ -175,16 +175,17 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 	// シャドウマップ描画用のシェーダーを指定する。
 	m_shadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
 
-	// カラーバッファのフォーマットに変更が入ったので、こちらも変更する。
+	// カラーバッファのフォーマット
 	m_shadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
-	
+
 	// ファイルパスを指定
 	m_shadowModelInitData.m_tkmFilePath = m_tkmFilePath;
-
-
 	
-	m_shadowModelInitData.m_vsSkinEntryPointFunc  = "VSSkinMain";
-	
+	// スケルトンを指定する。
+	if (m_skeletonPointer) {	//スケルトンが初期化されていたら
+		m_shadowModelInitData.m_skeleton = m_skeletonPointer.get();
+	}
+
 	// 初期化情報をもとに初期化する
 	m_ShadowModel.Init(m_shadowModelInitData);
 
@@ -197,9 +198,9 @@ void ModelRender::InitShadowModel(ShadowMap* shadowMap)
 
 	// シャドウマップのアドレスを代入
 	m_shadowMap = shadowMap;
-	
+
 	// 注！コピーではなく参照を渡す！間違えないようにしよう！
-	m_shadowMap->RegistModel( &m_ShadowModel );
+	m_shadowMap->RegistModel(&m_ShadowModel);
 
 }
 
