@@ -26,16 +26,14 @@ bool Player::Start(ShadowMap* shadowMap)
 	m_playerAnimation[MoveForwardThirdPower].Load(filePath::tka::MoveForwardThirdPower);
 	m_playerAnimation[MoveForwardThirdPower].SetLoopFlag(true);
 
+	m_playerAnimation[KnockBack].Load(filePath::tka::KnockBack);
+	m_playerAnimation[KnockBack].SetLoopFlag(false);
+
 	// モデルのインスタンスを作成
 	m_playerModel = NewGO<ModelRender>(0);
 
-	// キャラクターコントローラーの作成 (かご型コリジョン)
+	// モデルの初期化
 	m_playerModel->Init(filePath::tkm::PlayerModel, *shadowMap, enModelUpAxis::enModelUpAxisZ, m_playerAnimation, AnimationMax);
-	m_playerCC.Init(
-		45.0f,
-		55.0f,
-		m_position
-	);
 
 	// アニメーションのIdleを再生する
 	m_playerModel->PlayAnimation(Idle);	
@@ -43,13 +41,33 @@ bool Player::Start(ShadowMap* shadowMap)
 	// 位置を指定
 	m_playerModel->SetPosition(m_position);
 
+	m_playerEnemyHit = FindGO<PlayerEnemyHit>(findName::PlayerEnemyHit);
+
 	return true;
 }
 
-void Player::Update()	// 各関数の中身はPlayerActionに書いてある
+void Player::Update()
 {
-	Move();
-	Rotation();
-	Animation();
+	Vector3 diff = m_position - g_vec3Zero;
+	if (diff.Length() > 1150.0f && m_position.y > -450.0f)
+	{
+		m_position.y -= 50.0f;
+
+		// 指定した位置をモデルに伝える
+		m_playerModel->SetPosition(m_position);
+	}
+	if (m_playerEnemyHit->GetKnockBackRigidityFlag(false)==false) {
+		Move();
+		Rotation();
+		Animation();	
+	}
+	else {
+		// 指定した位置をモデルに伝える
+		m_playerModel->SetPosition(m_position);
+	}
+
 	PowerRelease();
+
+	//// 位置の指定
+	//m_position += m_moveSpeed;
 }

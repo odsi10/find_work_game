@@ -18,18 +18,19 @@ bool Enemy::Start(ShadowMap* shadowMap)
 	// モデルを初期化する
 	m_enemyModel->Init(filePath::tkm::EnemyModel,*shadowMap);
 
-	// キャラクターコントローラーを作成する
-	m_enemyCC.Init(
-		35.0f,
-		75.0f,
-		m_position
-	);
-
 	return true;
 }
 
 void Enemy::Update()
 {
+	Vector3 diff = m_position - g_vec3Zero;
+	if (diff.Length() > 1150.0f && m_position.y > -450.0f)
+	{
+		m_position.y -= 50.0f;
+
+		// 指定した位置をモデルに伝える
+		m_enemyModel->SetPosition(m_position);
+	}
 	// 位置の更新
 	m_enemyModel->SetPosition(m_position);
 }

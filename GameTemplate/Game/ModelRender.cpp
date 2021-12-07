@@ -113,33 +113,33 @@ void ModelRender::InitPointLight()
 	m_light.ptPosition.z = 50.0f;
 
 	// ポイントライトの初期カラーを設定する
-	m_light.ptColor.x = 15.0f;
-	m_light.ptColor.y = 0.0f;
-	m_light.ptColor.z = 0.0f;
+	m_light.ptColor.x = 5.0f;
+	m_light.ptColor.y = 3.0f;
+	m_light.ptColor.z = 1.0f;
 
 	// ポイントライトの影響範囲を設定する
-	m_light.ptRange = 100.0f;
+	m_light.ptRange = 1000.0f;
 }
 
 void ModelRender::InitSpotLight()
 {
 	// 初期座標
 	m_light.spPosition.x = 0.0f;
-	m_light.spPosition.y = 50.0f;
-	m_light.spPosition.z = -150.0f;
+	m_light.spPosition.y = 250.0f;
+	m_light.spPosition.z = 0.0f;
 
 	// ライトのカラー
 	m_light.spColor.x = 15.0f;
 	m_light.spColor.y = 0.0f;
 	m_light.spColor.z = 0.0f;
 	// 初期方向は斜め下にする。
-	m_light.spDirection.x = 1.0f;
+	m_light.spDirection.x = -1.0f;
 	m_light.spDirection.y = -1.0f;
-	m_light.spDirection.z = 1.0f;
+	m_light.spDirection.z = -1.0f;
 	// 正規化
 	m_light.spDirection.Normalize();
 	// 射出範囲は300
-	m_light.spRange = 300.0f;
+	m_light.spRange = 500.0f;
 	// 射出角度は25度
 	m_light.spAngle = Math::DegToRad(25.0f);
 }

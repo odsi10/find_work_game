@@ -19,8 +19,8 @@ bool BackGround::Start(ShadowMap* shadowMap)
 	// モデルの初期化
 	m_backGroundModel->Init(filePath::tkm::BackGround,*shadowMap);
 
-	// 静的オブジェクトのコリジョンを作成
-	m_backGroundPSO.CreateFromModel(m_backGroundModel->GetModel(), m_backGroundModel->GetModel().GetWorldMatrix());
+	//// 静的オブジェクトのコリジョンを作成 (今回は距離によってプレイヤーなどを制御するため、使わない）
+	//m_backGroundPSO.CreateFromModel(m_backGroundModel->GetModel(), m_backGroundModel->GetModel().GetWorldMatrix());
 
 	return true;
 }

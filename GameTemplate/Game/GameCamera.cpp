@@ -44,4 +44,8 @@ void GameCamera::Update()
 	g_camera3D->SetTarget(m_target);
 	// カメラのポジションを指定
 	g_camera3D->SetPosition(m_position);
+
+	/*Quaternion qAddRot;
+	qAddRot.SetRotationDegX(g_pad[0]->GetRStickYF());
+	g_camera3D->RotateOriginTarget(qAddRot);*/
 }

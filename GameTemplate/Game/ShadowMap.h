@@ -6,9 +6,11 @@
 
 #include "ModelRender.h"
 #include "GaussianBlur.h"
+#include "Player.h"
 
 // 他クラスを使うために宣言する
 class GaussianBlur;
+class Player;
 
 // GPU側で利用するシャドウ用の構造体を定義する
 struct ShadowParam
@@ -81,7 +83,13 @@ private: //データメンバ
 
 	GaussianBlur m_gaussianBlur;			// ガウシアンブラー
 
+	RenderTarget m_shadowMapRenderTarget;	// シャドウマップ描画用のレンダリングターゲットを初期化する
+
+	Player* m_player = nullptr;
+
 	std::vector<Model*> m_modelArray;		// 影モデルの登録
 
-	RenderTarget m_shadowMapRenderTarget;	// シャドウマップ描画用のレンダリングターゲットを初期化する
+	Vector3 m_lightCaneraPosition = { 1000,1000,1000 };
+	Vector3 m_moveSpeed = { 0.0f,0.0f,0.0f };		 // 移動量
+	float m_fSpeed = -6.0f;							 // 基礎移動量
 };

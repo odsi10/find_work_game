@@ -18,10 +18,6 @@ bool ShadowMap::Start()
     return true;
 }
 
-void ShadowMap::Update()
-{
-}
-
 void ShadowMap::Init()
 {
 }
@@ -51,14 +47,13 @@ void ShadowMap::InitGaussianBlur()
 void ShadowMap::Draw(RenderContext& renderContext)
 {
     // カメラの位置を設定。これはライトの位置
-    m_lightCamera.SetPosition(1000, 1000, 1000);
+    m_lightCamera.SetPosition(m_lightCaneraPosition);
 
     // カメラの注視点を設定。これがライトが照らしている場所
     m_lightCamera.SetTarget(0, 0, 0);
 
     // 上方向を設定。今回はライトが下を向いているので、X方向を上にしている
     m_lightCamera.SetUp(1, 0, 0);
-
     m_lightCamera.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
     m_lightCamera.SetWidth(1000.0f);
     m_lightCamera.SetHeight(1000.0f);
@@ -89,4 +84,16 @@ void ShadowMap::Draw(RenderContext& renderContext)
         g_graphicsEngine->GetCurrentFrameBuffuerDSV()
     );
     renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
+}
+
+void ShadowMap::Update()
+{
+    m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
+    m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
+
+    m_lightCaneraPosition += m_moveSpeed;
+
+    m_lightCamera.SetPosition(m_lightCaneraPosition);
+    
+    m_lightCamera.SetTarget(m_player->GetPosition());
 }

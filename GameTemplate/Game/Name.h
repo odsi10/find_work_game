@@ -11,7 +11,7 @@ namespace filePath	// ファイルパス
 		constexpr const char* UnityChan = "Assets/modelData/unityChan.tkm";		// 仮モデル
 		constexpr const char* PlayerModel = "Assets/modelData/player.tkm";		// プレイヤー
 		constexpr const char* EnemyModel = "Assets/modelData/enemy.tkm";		// エネミー
-		constexpr const char* BackGround = "Assets/modelData/backGround.tkm";	//ステージ
+		constexpr const char* BackGround = "Assets/modelData/backGround.tkm";	// ステージ
 	}
 
 	namespace tka	// アニメーション
@@ -20,6 +20,7 @@ namespace filePath	// ファイルパス
 		constexpr const char* MoveForward = "Assets/animData/moveForward.tka";							// 前進
 		constexpr const char* MoveForwardSecondPower = "Assets/animData/moveForwardSecondPower.tka";	// 前進パワー2段目
 		constexpr const char* MoveForwardThirdPower = "Assets/animData/moveForwardThirdPower.tka";		// 前進パワー３段目
+		constexpr const char* KnockBack = "Assets/animData/knockBack.tka";								// ノックバック
 	}
 }
 
@@ -29,9 +30,18 @@ namespace findName	// FindGOのための名前付け
 	constexpr const char* Player = "プレイヤー";
 	constexpr const char* GameCamera = "ゲームカメラ";
 	constexpr const char* Enemy = "エネミー";
+	constexpr const char* PlayerEnemyHit = "プレイヤーエネミーヒット";
 }
 
 namespace priority	// 優先度
 {
 	const int PriorityZero = 0;
+}
+
+namespace constants // 定数
+{
+	const int IntZero = 0;
+	const int IntOne = 1;
+	const int IntTwo = 2;
+	const int IntThree = 3;
 }

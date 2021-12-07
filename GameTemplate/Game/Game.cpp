@@ -6,6 +6,7 @@
 #include "BackGround.h"
 #include "GameCamera.h"
 #include "Enemy.h"
+#include "PlayerEnemyHit.h"
 
 Game::Game()
 {
@@ -14,6 +15,7 @@ Game::Game()
 Game::~Game()
 {
 	DeleteGO(m_backGround);
+	DeleteGO(m_playerEnemyHit);
 	DeleteGO(m_player);
 	DeleteGO(m_gameCamera);
 	DeleteGO(m_enemy);
@@ -23,6 +25,9 @@ bool Game::Start(ShadowMap* shadowMap)
 {
 	// ステージ
 	m_backGround = NewGO<BackGround>(priority::PriorityZero, findName::BackGround);
+
+	// プレイヤーと敵が当たったときの吹っ飛ばし処理
+	m_playerEnemyHit = NewGO<PlayerEnemyHit>(priority::PriorityZero,findName::PlayerEnemyHit);
 
 	// プレイヤー
 	m_player = NewGO<Player>(priority::PriorityZero,findName::Player);
