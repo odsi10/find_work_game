@@ -51,6 +51,15 @@ public:	// Set関数
 	{
 		m_moveSpeed = moveSpeed;
 	}
+	void SetPower(const int power)
+	{
+		m_power = power;
+	}
+
+	void SetReleaseTimer(const float releaseTimer)
+	{
+		m_powerReleaseTimer = releaseTimer;
+	}
 
 public:	// Get関数
 	const Vector3& GetPosition()
@@ -61,6 +70,11 @@ public:	// Get関数
 	const Vector3& GetMove()
 	{
 		return m_moveSpeed;
+	}
+
+	const int& GetPower()
+	{
+		return m_power;
 	}
 
 private:	// アニメーション

@@ -25,7 +25,7 @@ void PlayerEnemyHit::Update()
 {
 	Vector3 playerEnemyHit = m_enemy->GetPosition() - m_player->GetPosition();
 
-	if (playerEnemyHit.Length() < 120.0f && m_knockBackRigidityFlag == false)
+	if (playerEnemyHit.Length() < 140.0f && m_knockBackRigidityFlag == false)
 	{
 		m_knockBackRigidityFlag = true;
 	}
@@ -36,23 +36,38 @@ void PlayerEnemyHit::Update()
 		collisionEPower = m_player->GetMove();
 		// ³‹K‰»‚µ‚Ä‘å‚«‚³‚P‚É‚·‚é
 		collisionEPower.Normalize();
-		// ‚Á”ò‚Î‚·‹——£‚ðŽw’è
-		collisionEPower *= 30;
+		switch (m_player->GetPower())
+		{
+		case 1:
+			collisionEPower *= 0;
+			break;
+		case 2:
+			collisionEPower *= 20.0f;
+			break;
+		case 3:
+			collisionEPower *= 30.0f;
+			break;
+		default:
+			break;
+		}
+
 		collisionPPower = collisionEPower;
-		Vector3 playerPosition;
-		playerPosition = m_player->GetPosition();
 		Vector3 enemyPosition;
 		enemyPosition = m_enemy->GetPosition();
+		Vector3 playerPosition;
+		playerPosition = m_player->GetPosition();
 		m_knockBackRigidityTimer++;
-		if (m_knockBackRigidityTimer < 10) {
+		if (m_knockBackRigidityTimer < 10.0f) {
 			enemyPosition += collisionEPower;
 			m_enemy->SetPosition(enemyPosition);
 			playerPosition -= collisionPPower;
 			m_player->SetPosition(playerPosition);
 		}
-		if (m_knockBackRigidityTimer > 100.0f)
+		if (m_knockBackRigidityTimer > 20.0f)
 		{
+			m_player->SetPower(constants::IntOne);
 			m_knockBackRigidityTimer = 0.0f;
+			m_player->SetReleaseTimer(60.0f);
 			m_knockBackRigidityFlag = false;
 		}
 	}

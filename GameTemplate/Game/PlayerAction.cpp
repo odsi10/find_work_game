@@ -10,6 +10,7 @@ void Player::Move()
 		// アナログスティックの傾き具合を取得して、基礎移動量をかける
 		m_moveSpeed.x = g_pad[0]->GetLStickXF() * m_fSpeed;
 		m_moveSpeed.z = g_pad[0]->GetLStickYF() * m_fSpeed;
+		m_power = constants::IntZero;
 	}
 	else {
 		m_moveSpeed = { 0.0f,0.0f,0.0f };
@@ -118,7 +119,7 @@ void Player::PowerRelease()
 	{
 		m_powerReleaseFlag = true;
 		m_powerReleaseTimer++;
-		if (m_powerReleaseTimer == 60.0f)
+		if (m_powerReleaseTimer >= 60.0f)
 		{
 			m_powerFlag = false;
 			m_powerTimer = 0.0f;

@@ -10,6 +10,7 @@ namespace filePath	// ファイルパス
 	{
 		constexpr const char* UnityChan = "Assets/modelData/unityChan.tkm";		// 仮モデル
 		constexpr const char* PlayerModel = "Assets/modelData/player.tkm";		// プレイヤー
+		constexpr const char* PlayerModel2 = "Assets/modelData/player2.tkm";		// プレイヤー
 		constexpr const char* EnemyModel = "Assets/modelData/enemy.tkm";		// エネミー
 		constexpr const char* BackGround = "Assets/modelData/backGround.tkm";	// ステージ
 	}
